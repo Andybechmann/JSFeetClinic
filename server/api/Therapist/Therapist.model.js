@@ -8,8 +8,11 @@ var TherapistSchema = new mongoose.Schema({
   treaments:[{
     type: Schema.ObjectId,
     ref:'Treatment'
+  }],
+  bookings: [{
+    type: Schema.ObjectId,
+    ref:'Booking'
   }]
-}
-);
+});
 
 export default mongoose.model('Therapist', TherapistSchema);
