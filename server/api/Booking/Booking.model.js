@@ -4,8 +4,13 @@ var mongoose = require('bluebird').promisifyAll(require('mongoose'));
 
 var BookingSchema = new mongoose.Schema({
   name: String,
-  info: String,
-  active: Boolean
+  user:{
+    type:Schema.ObjectId,
+    ref:'User'
+  },
+  bookingDate:Date,
+  
+
 });
 
 export default mongoose.model('Booking', BookingSchema);
