@@ -4,8 +4,10 @@ var mongoose = require('bluebird').promisifyAll(require('mongoose'));
 
 var TreatmentSchema = new mongoose.Schema({
   name: String,
-  info: String,
-  active: Boolean
-});
+  description:String,
+  price: Number,
+  duration:Number,
+  type:String
+  });
 
 export default mongoose.model('Treatment', TreatmentSchema);
