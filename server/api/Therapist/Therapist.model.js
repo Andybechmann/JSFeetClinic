@@ -14,7 +14,20 @@ var TherapistSchema = new mongoose.Schema({
   bookings: [{
     type: Schema.ObjectId,
     ref:'Booking'
-  }]
+  }],
+
+    dayWorking:[{
+      dayOfWeek: Number,
+      startTime:Date,
+      endTime: Date,
+      StartLunch: Date,
+      lunchDuration:Number
+    }],
+    holiday:[{
+      startDate:Date,
+      endDate: Date
+    }]
+  
 });
 
 export default mongoose.model('Therapist', TherapistSchema);
