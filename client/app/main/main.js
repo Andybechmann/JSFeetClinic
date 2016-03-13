@@ -1,12 +1,11 @@
 'use strict';
 
 angular.module('feetClinicApp')
-  .config(function($stateProvider) {
+  .config(function ($stateProvider) {
     $stateProvider
       .state('main', {
         url: '/',
         templateUrl: 'app/main/main.html',
-        controller: 'MainController',
-        controllerAs: 'main'
+        controller: 'MainCtrl'
       });
   });
