@@ -18,7 +18,7 @@ angular.module('feetClinicApp')
       'title': 'Products',
       'state': 'Products'
     }
-
+//regeg
   ];
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;

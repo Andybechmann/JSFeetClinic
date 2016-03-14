@@ -7,3 +7,4 @@ angular.module('feetClinicApp')
     controller: 'NavbarController'
 
   }));
+//eheh
