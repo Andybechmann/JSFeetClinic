@@ -1,21 +1,27 @@
 'use strict';
 
-class NavbarController {
-  //start-non-standard
-  menu = [{
-    'title': 'Home',
-    'state': 'main'
-  }];
-
-  isCollapsed = true;
-  //end-non-standard
-
-  constructor(Auth) {
-    this.isLoggedIn = Auth.isLoggedIn;
-    this.isAdmin = Auth.isAdmin;
-    this.getCurrentUser = Auth.getCurrentUser;
-  }
-}
-
 angular.module('feetClinicApp')
-  .controller('NavbarController', NavbarController);
+  .controller('NavbarController', function ($scope,Auth) {
+    $scope.menu = [{
+      'title': 'Home',
+      'state': 'main'
+    },
+    {
+      'title': 'Treatment',
+      'state': 'Treatment'
+    },
+    {
+      'title': 'Therapist',
+      'state': 'Therapist'
+    },
+    {
+      'title': 'Products',
+      'state': 'Products'
+    }
+
+  ];
+    $scope.isCollapsed = true;
+    $scope.isLoggedIn = Auth.isLoggedIn;
+    $scope.isAdmin = Auth.isAdmin;
+    $scope.getCurrentUser = Auth.getCurrentUser;
+  });
