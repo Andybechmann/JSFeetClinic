@@ -1,6 +1,6 @@
 
 angular.module('feetClinicApp')
-  .controller('NavbarController', function ($scope, Auth) {
+  .controller('AdminNavbarController', function ($scope, Auth) {
 
     $scope.menu = [{
       'title': 'Home',
