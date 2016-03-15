@@ -21,6 +21,7 @@ angular.module('feetClinicApp')
 //regeg
   ];
     $scope.isCollapsed = true;
+
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;

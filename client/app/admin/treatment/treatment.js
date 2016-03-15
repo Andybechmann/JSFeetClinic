@@ -3,9 +3,10 @@
 angular.module('feetClinicApp')
   .config(function ($stateProvider) {
     $stateProvider
-      .state('treatment', {
-        url: '/treatment',
+      .state('adminTreatment', {
+        url: '/admin/treatment',
         templateUrl: 'app/admin/treatment/treatment.html',
-        controller: 'TreatmentCtrl'
+        controller: 'AdminTreatmentCtrl',
+        authenticate: 'admin'
       });
   });

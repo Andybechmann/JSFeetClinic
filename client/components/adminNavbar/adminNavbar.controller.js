@@ -2,13 +2,19 @@
 angular.module('feetClinicApp')
   .controller('AdminNavbarController', function ($scope, Auth) {
 
-    $scope.menu = [{
-      'title': 'Home',
-      'state': 'main'
-    }];
+    $scope.menu = [
+      {
+      'title': 'Bookings',
+      'state': 'adminBooking'
+      },
+      {
+        'title': 'Behandler',
+        'state': 'adminTherapist'
+      },
+      {
+        'title': 'Behandling',
+        'state': 'adminTreatment'
+      },
+    ];
 
-    $scope.isCollapsed = true;
-    $scope.isLoggedIn = Auth.isLoggedIn;
-    $scope.isAdmin = Auth.isAdmin;
-    $scope.getCurrentUser = Auth.getCurrentUser;
   });

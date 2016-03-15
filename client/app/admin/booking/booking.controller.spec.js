@@ -1,16 +1,16 @@
 'use strict';
 
-describe('Controller: AdminTreatmentCtrl', function () {
+describe('Controller: AdminBookingCtrl', function () {
 
   // load the controller's module
   beforeEach(module('feetClinicApp'));
 
-  var AdminTreatmentCtrl, scope;
+  var AdminBookingCtrl, scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    AdminTreatmentCtrl = $controller('AdminTreatmentCtrl', {
+    AdminBookingCtrl = $controller('AdminBookingCtrl', {
       $scope: scope
     });
   }));

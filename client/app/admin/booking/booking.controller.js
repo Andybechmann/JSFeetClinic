@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('feetClinicApp')
-  .controller('AdminTreatmentCtrl', function ($scope) {
+  .controller('AdminBookingCtrl', function ($scope) {
     $scope.message = 'Hello';
   });

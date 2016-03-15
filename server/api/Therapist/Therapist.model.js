@@ -5,29 +5,28 @@ Schema = mongoose.Schema;
 
 
 var TherapistSchema = new mongoose.Schema({
-  name: String,
+  name:{
+    type:String,
+    unique: true
+  },
   description:String,
-  treaments:[{
-    type: Schema.ObjectId,
-    ref:'Treatment'
-  }],
+  treatments:[String],
   bookings: [{
     type: Schema.ObjectId,
     ref:'Booking'
   }],
 
-    dayWorking:[{
-      dayOfWeek: Number,
-      startTime:Date,
-      endTime: Date,
-      StartLunch: Date,
-      lunchDuration:Number
-    }],
-    holiday:[{
-      startDate:Date,
-      endDate: Date
+  dayWorking:[{
+    dayOfWeek: Number,
+    startTime:Date,
+    endTime: Date,
+    StartLunch: Date,
+    lunchDuration:Number
+  }],
+   holiday:[{
+     startDate:Date,
+     endDate: Date
     }]
-  
 });
 
 export default mongoose.model('Therapist', TherapistSchema);
