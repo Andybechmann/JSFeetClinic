@@ -1,1 +1,11 @@
-
+<md-list>
+       <md-subheader class="md-no-sticky">Therapist</md-subheader>
+       <md-list-item class="md-3-line" ng-click = "goToTherapist(Therapist) " ng-repeat="Therapist in Therapists">
+         <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
+         <div class="md-list-item-text" layout="column">
+           <h4 class="media-heading">{{}} </h4>
+           <h6>- {{    }}</h6>
+           
+         </div>
+       </md-list-item>
+     </md-list>
