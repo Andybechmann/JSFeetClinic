@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('feetClinicApp')
-  .controller('AdminTherapistCtrl', function ($scope,TherapistService) {
+  .controller('AdminTherapistCtrl', function($scope, TherapistService,socket) {
+
+
 
     $scope.topDirections = ['left', 'up'];
     $scope.bottomDirections = ['down', 'right'];
@@ -11,29 +13,38 @@ angular.module('feetClinicApp')
     $scope.availableDirections = ['up', 'down', 'left', 'right'];
     $scope.selectedDirection = 'up';
 
-    TherapistService.query(function(therapists){
+    TherapistService.query(function(therapists) {
       $scope.therapists = therapists;
     });
 
-    $scope.createTherapist = function(){
-      TherapistService.save($scope.newTherapist, function(therapist){
-        //show result
-        // console.log(therapist);
-      })
-    };
-
-    $scope.deleteTherapist = function(therapist){
-      TherapistService.delete({id:therapist._id}, function(therapist){
-        console.log('Therapist deleted');
-      });
-    };
-
-    $scope.updateTherapist = function(therapist) {
-      //console.log('i clicked');
-      TherapistService.update({  id: therapist._id}, therapist,
-        function(therapist) {
-        console.log('update treatment', therapist);
-      });
-    };
+    socket.syncUpdates('Therapist',$scope.therapists,
+    function(event){
+      console.log('updatet',event);
     });
 
+    $scope.$on('$destroy',function(){
+      socket.unsyncUpdates('Therapist');
+    });
+
+
+
+    $scope.updateTreatment = function(update) {
+      console.log('i clicked');
+      TherapistService.update({
+        id: update._id
+      }, update, function(update) {
+        console.log('update therapist', update);
+      });
+
+    };
+
+
+
+    $scope.deleteTreatment = function(things) {
+      TherapistService.delete({
+        id: things._id
+      }, function(things) {
+        console.log('delete therapist', things);
+      });
+    };
+  });
