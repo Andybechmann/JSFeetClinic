@@ -1,2 +1,11 @@
 <admin-navbar></admin-navbar>
 
+<div ng-repeat ="t in therapists"> {{t.name}}
+<Button ng-click = 'deleteTherapist(t)'> Delete</button>
+
+<input ng-model='t.name'>
+<input ng-model='t.description'>
+
+<Button ng-click ='updateTherapist(t)'> update </button>
+
+</div>
