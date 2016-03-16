@@ -1,3 +1,8 @@
 <admin-navbar></admin-navbar>
-<div>This is the treatment view.</div>
+<div ng-repeat ="t in treatments"> {{t.name}}
+<Button ng-click = 'deleteTreatment(t)'> Delete</button>
 
+<input ng-model='t.name'>
+<Button ng-click ='updateTreatment(t)'> update </button>
+
+</div>
