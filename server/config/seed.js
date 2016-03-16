@@ -4,39 +4,53 @@
  */
 
 'use strict';
-import Thing from '../api/thing/thing.model';
 import User from '../api/user/user.model';
+import Therapist from '../api/Therapist/Therapist.model';
+import Treatment from '../api/Treatment/Treatment.model';
 
-Thing.find({}).removeAsync()
+Treatment.find({}).removeAsync()
   .then(() => {
-    Thing.create({
-      name: 'Development Tools',
-      info: 'Integration with popular tools such as Bower, Grunt, Babel, Karma, ' +
-             'Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, ' +
-             'Stylus, Sass, and Less.'
-    }, {
-      name: 'Server and Client integration',
-      info: 'Built with a powerful and fun stack: MongoDB, Express, ' +
-             'AngularJS, and Node.'
-    }, {
-      name: 'Smart Build System',
-      info: 'Build system ignores `spec` files, allowing you to keep ' +
-             'tests alongside code. Automatic injection of scripts and ' +
-             'styles into your index.html'
-    }, {
-      name: 'Modular Structure',
-      info: 'Best practice client and server structures allow for more ' +
-             'code reusability and maximum scalability'
-    }, {
-      name: 'Optimized Build',
-      info: 'Build process packs up your templates as a single JavaScript ' +
-             'payload, minifies your scripts/css/images, and rewrites asset ' +
-             'names for caching.'
-    }, {
-      name: 'Deployment Ready',
-      info: 'Easily deploy your app to Heroku or Openshift with the heroku ' +
-             'and openshift subgenerators'
+    Treatment.create({
+      name: 'Fodbehandling',
+      description: 'Fjernelse af hård hud og evt. ligtorne, klipning og slibning af neglene, ' +
+                    'indgnidning af blødgørende negle olie.',
+      price: 300,
+      duration: 30,
+      type: 'Fodbehandling'
+    },{
+      name: 'Luksus Fodbehandling',
+      description: 'En  luksusbehandling for dine fødder og læg, til dig som ønsker velvære.' +
+      'Peeling af fødder, ankler og læg.Fjernelse af hård hud og evt. ligtorne.' +
+      'Klipning og slibning af neglene, indgnidning af blødgørende negle olie. Fødderne får til ' +
+      'sidst en lækker Paraffinbehandling ',
+      price: 395,
+      duration: 45,
+      type: 'Fodbehandling'
     });
+  });
+
+Therapist.find({}).removeAsync()
+  .then(() => {
+    Therapist.createAsync({
+      name:'Andy',
+      description:'Nyuddanet behandler',
+      treatments:[{
+        name:'Luksus Fodbehandling',
+        licensed: true
+      },{name:'Fodbehandling',
+        licensed: true}
+      ]
+    },{
+        name:'Ievgenii',
+        description:'Erfaring behandler',
+        treatments:[{
+          name:'Luksus Fodbehandling',
+          licensed: false
+        },{name:'Fodbehandling',
+          licensed: true}
+        ]
+    }
+    );
   });
 
 User.find({}).removeAsync()
