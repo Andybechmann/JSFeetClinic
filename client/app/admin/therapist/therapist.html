@@ -2,8 +2,7 @@
 <br>
 <div class="container">
 
-  <md-list flex>
-
+  <md-list ng-cloak>
     <md-subheader class="md-no-sticky">Vores behandler</md-subheader>
     <md-list-item class="md-3-line" ng-click="goToTherapist(therapist)" ng-repeat="therapist in therapists">
       <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" />
@@ -13,11 +12,14 @@
       </div>
       <md-button class="md-secondary" ng-click="deleteTherapist(therapist)">Delete</md-button>
     </md-list-item>
-    <md-divider>
+  </md-list>
     </md-list>
   <br>
+
   <div class="btn btn-primary">
     Create new
   </div>
 </div>
+
+
 

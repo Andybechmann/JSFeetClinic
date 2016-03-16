@@ -12,11 +12,15 @@ angular.module('feetClinicApp', [
     'ui.bootstrap',
     'validation.match',
     'ngMaterial',
-    'ngMessages'
+    'ngMessages',
+
   ])
   .config(function($urlRouterProvider, $locationProvider) {
     $urlRouterProvider
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
+
+
   });
+
