@@ -34,6 +34,7 @@ Therapist.find({}).removeAsync()
     Therapist.createAsync({
       name:'Andy',
       description:'Nyuddanet behandler',
+      imageUrl:"../../assets/images/1.jpg",
       treatments:[{
         name:'Luksus Fodbehandling',
         licensed: true
@@ -43,6 +44,37 @@ Therapist.find({}).removeAsync()
     },{
         name:'Ievgenii',
         description:'Erfaring behandler',
+        imageUrl:"../../assets/images/2.jpg",
+        treatments:[{
+          name:'Luksus Fodbehandling',
+          licensed: false
+        },{name:'Fodbehandling',
+          licensed: true}
+        ]
+    },{
+        name:'kathe',
+        description:'Erfaring behandler',
+        imageUrl:"../../assets/images/2.jpg",
+        treatments:[{
+          name:'Luksus Fodbehandling',
+          licensed: false
+        },{name:'Fodbehandling',
+          licensed: true}
+        ]
+    },{
+        name:'test1',
+        description:'Erfaring behandler',
+        imageUrl:"../../assets/images/2.jpg",
+        treatments:[{
+          name:'Luksus Fodbehandling',
+          licensed: false
+        },{name:'Fodbehandling',
+          licensed: true}
+        ]
+    },{
+        name:'test2',
+        description:'Erfaring behandler',
+        imageUrl:"../../assets/images/2.jpg",
         treatments:[{
           name:'Luksus Fodbehandling',
           licensed: false
