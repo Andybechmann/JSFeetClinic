@@ -10,6 +10,7 @@ var TherapistSchema = new mongoose.Schema({
     unique: true
   },
   description:String,
+  imageUrl: String,
   treatments:[{
     name:String,
     licensed: Boolean
