@@ -3,6 +3,7 @@
 angular.module('feetClinicApp')
   .controller('AdminTreatmentCtrl', function($scope, TreatmentService,socket) {
 
+    $scope.isCollapsed = false;
     TreatmentService.query(function(treatments) {
       $scope.treatments = treatments;
     });

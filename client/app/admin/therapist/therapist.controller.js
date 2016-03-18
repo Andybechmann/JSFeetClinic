@@ -1,50 +1,64 @@
 'use strict';
 
 angular.module('feetClinicApp')
-  .controller('AdminTherapistCtrl', function($scope, TherapistService,socket) {
+    .controller('AdminTherapistCtrl', function ($state,$stateParams,$scope,TherapistService,socket) {
+
+      $scope.isId = !_.isEmpty($stateParams.id);
+      $scope.therapists = {};
+      $scope.therapist = {};
 
 
+    $scope.goToTherapist = function(therapist){
+      $state.go('adminTherapist',{id:therapist._id});
+    };
 
-    $scope.topDirections = ['left', 'up'];
-    $scope.bottomDirections = ['down', 'right'];
-    $scope.isOpen = false;
-    $scope.availableModes = ['md-fling', 'md-scale'];
-    $scope.selectedMode = 'md-fling';
-    $scope.availableDirections = ['up', 'down', 'left', 'right'];
-    $scope.selectedDirection = 'up';
-
-    TherapistService.query(function(therapists) {
-      $scope.therapists = therapists;
-    });
-
-    socket.syncUpdates('Therapist',$scope.therapists,
-    function(event){
-      console.log('updatet',event);
-    });
-
-    $scope.$on('$destroy',function(){
-      socket.unsyncUpdates('Therapist');
-    });
-
-
-
-    $scope.updateTherapist = function(update) {
-      console.log('i clicked');
-      TherapistService.update({
-        id: update._id
-      }, update, function(update) {
-        console.log('update therapist', update);
+      $scope.$on('$destroy',function() {
+        socket.unsyncUpdates('Therapist');
       });
 
+      TherapistService.query(function(therapists){
+        $scope.therapists = therapists;
+        socket.syncUpdates('Therapist',$scope.therapists);
+      });
+
+      if (!$scope.isId) {
+      } else {
+        TherapistService.get({id: $stateParams.id}, function (therapist) {
+          $scope.therapist = therapist;
+          socket.syncUpdates('Therapist',$scope.therapist);
+        });
+      };
+
+
+
+      //-- start  C R U D
+
+
+
+
+    $scope.createTherapist = function(){
+      TherapistService.save($scope.newTherapist, function(therapist){
+      })
     };
 
 
-
-    $scope.deleteTherapist = function(things) {
-      TherapistService.delete({
-        id: things._id
-      }, function(things) {
-        console.log('delete therapist', things);
+    $scope.readTherapist = function() {
+      TherapistService.get({id: $stateParams.id}, function (therapist) {
+        $scope.therapist = therapist;
       });
     };
-  });
+
+      $scope.updateTherapist = function(therapist) {
+        TherapistService.update({  id: therapist._id}, therapist,
+          function(therapist) {
+          });
+      };
+
+      $scope.deleteTherapist = function(therapist){
+        TherapistService.delete({id:therapist._id}, function(therapist){
+        });
+      };
+    });
+
+
+        // --- end C R U D

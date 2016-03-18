@@ -1,6 +1,6 @@
 
 angular.module('feetClinicApp')
-  .controller('AdminNavbarController', function ($scope, Auth) {
+  .controller('AdminNavbarController', function ($scope,$state, Auth) {
 
     $scope.menu = [
       {
@@ -16,5 +16,9 @@ angular.module('feetClinicApp')
         'state': 'adminTreatment'
       },
     ];
+
+    $scope.goToState = function(item){
+      $state.go(item.state,{id:null});
+    }
 
   });
