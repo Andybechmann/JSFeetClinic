@@ -30,12 +30,17 @@ angular.module('feetClinicApp')
       };
 
 
+
       //-- start  C R U D
+
+
+
 
     $scope.createTherapist = function(){
       TherapistService.save($scope.newTherapist, function(therapist){
       })
     };
+
 
     $scope.readTherapist = function() {
       TherapistService.get({id: $stateParams.id}, function (therapist) {
@@ -53,7 +58,7 @@ angular.module('feetClinicApp')
         TherapistService.delete({id:therapist._id}, function(therapist){
         });
       };
+    });
+
 
         // --- end C R U D
-  });
-
