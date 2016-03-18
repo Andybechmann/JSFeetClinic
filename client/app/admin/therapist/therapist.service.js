@@ -16,6 +16,12 @@ angular.module('feetClinicApp')
             controller:'weeks'
           }
         }
+      },
+      {
+        get:{method:'GET',isArray:false}
+      },
+      {
+        query:{method:'GET',isArray:true, cache:false}
       }
     );
     });

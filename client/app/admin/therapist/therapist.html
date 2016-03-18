@@ -1,23 +1,77 @@
 <admin-navbar></admin-navbar>
 <br>
-<div class="container">
-
+<div class="container" >
+<div ng-if="!isId">
   <md-list ng-cloak>
     <md-subheader class="md-no-sticky">Vores behandler</md-subheader>
-    <md-list-item class="md-3-line" ng-click="goToTherapist(therapist)" ng-repeat="therapist in therapists">
-      <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" />
+    <md-list-item class="md-3-line secondary-button-padding"  ng-click="goToTherapist(therapist)"
+                  ng-repeat="therapist in therapists" >
+      <img class="md-avatar" />
       <div class="md-list-item-text" layout="column">
         <h2>{{therapist.name}}</h2>
         <h3>{{therapist.description}}</h3>
       </div>
-      <md-button class="md-secondary" ng-click="deleteTherapist(therapist)">Delete</md-button>
-    </md-list-item>
-  </md-list>
-    </md-list>
-  <br>
+      <md-button class="md-secondary" ng-click="deleteTherapist(therapist)">
+        <i class="material-icons">delete_forever</i>
+      </md-button>
 
-  <div class="btn btn-primary">
-    Create new
+    </md-list-item>
+
+  </md-list>
+
+
+  <br>
+</div>
+
+  <div ng-if="isId">
+    <form class="form-horizontal" >
+      <fieldset>
+        <!-- Form Name -->
+        <legend>{{therapist.name}}</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-2 control-label" for="name">Name</label>
+          <div class="col-md-8">
+            <input id="name" name="name" type="text" value="{{therapist.name}}" class="form-control input-md" required="">
+          </div>
+        </div>
+        <!-- Textarea -->
+        <div class="form-group">
+          <label class="col-md-2 control-label" for="description">Description</label>
+          <div class="col-md-8">
+            <textarea class="form-control" id="description" name="description" rows=8>{{therapist.description}}</textarea>
+          </div>
+        </div>
+
+        <div>
+          <button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Behandlinger</button>
+          <hr>
+        <!--Behandlinger-->
+        <md-list  ng-cloak uib-collapse="isCollapsed">
+          <md-list-item ng-repeat="treatment in therapist.treatments">
+            <p > {{ treatment.name }} </p>
+            <md-checkbox class="md-secondary" ng-model="treatment.licensed"></md-checkbox>
+          </md-list-item>
+          <md-divider></md-divider>
+        </md-list>
+        </div>
+
+      </fieldset>
+
+
+
+      <!-- Button -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="singlebutton"></label>
+        <div class="col-md-4">
+          <button id="singlebutton" name="singlebutton" class="btn btn-primary" ng-click="updateTherapist(therapist)">Save</button>
+        </div>
+      </div>
+
+    </form>
+
+
   </div>
 </div>
 

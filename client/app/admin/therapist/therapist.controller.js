@@ -1,39 +1,58 @@
 'use strict';
 
 angular.module('feetClinicApp')
-  .controller('AdminTherapistCtrl', function ($scope,TherapistService) {
 
-    $scope.topDirections = ['left', 'up'];
-    $scope.bottomDirections = ['down', 'right'];
-    $scope.isOpen = false;
-    $scope.availableModes = ['md-fling', 'md-scale'];
-    $scope.selectedMode = 'md-fling';
-    $scope.availableDirections = ['up', 'down', 'left', 'right'];
-    $scope.selectedDirection = 'up';
+    .controller('AdminTherapistCtrl', function ($state,$stateParams,$scope,TherapistService,socket) {
 
-    TherapistService.query(function(therapists){
-      $scope.therapists = therapists;
-    });
+      $scope.isId = !_.isEmpty($stateParams.id);
+      $scope.therapists = {};
+      $scope.therapist = {};
+
+
+    $scope.goToTherapist = function(therapist){
+      $state.go('adminTherapist',{id:therapist._id});
+    };
+
+    //-- start  C R U D
 
     $scope.createTherapist = function(){
       TherapistService.save($scope.newTherapist, function(therapist){
-        //show result
-        // console.log(therapist);
       })
     };
 
-    $scope.deleteTherapist = function(therapist){
-      TherapistService.delete({id:therapist._id}, function(therapist){
-        console.log('Therapist deleted');
+    $scope.readTherapist = function(){
+      TherapistService.get({id:$stateParams.id},function(therapist){
+        $scope.therapist = therapist;
       });
     };
 
     $scope.updateTherapist = function(therapist) {
-      //console.log('i clicked');
       TherapistService.update({  id: therapist._id}, therapist,
         function(therapist) {
-        console.log('update treatment', therapist);
+        });
+    };
+    $scope.deleteTherapist = function(therapist){
+      TherapistService.delete({id:therapist._id}, function(therapist){
       });
     };
+
+    TherapistService.query(function(therapists){
+      $scope.therapists = therapists;
+      socket.syncUpdates('Therapist',$scope.therapists);
     });
+
+      if (!$scope.isId) {
+      } else {
+        TherapistService.get({id: $stateParams.id}, function (therapist) {
+          $scope.therapist = therapist;
+        });
+      }
+      ;
+
+
+
+
+
+    // --- end C R U D
+  });
 
