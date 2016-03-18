@@ -28,7 +28,7 @@ angular.module('feetClinicApp')
 
 
 
-    $scope.updateTreatment = function(update) {
+    $scope.updateTherapist = function(update) {
       console.log('i clicked');
       TherapistService.update({
         id: update._id
@@ -40,7 +40,7 @@ angular.module('feetClinicApp')
 
 
 
-    $scope.deleteTreatment = function(things) {
+    $scope.deleteTherapist = function(things) {
       TherapistService.delete({
         id: things._id
       }, function(things) {
