@@ -18,7 +18,7 @@ angular.module('feetClinicApp')
 
       TherapistService.query(function(therapists){
         $scope.therapists = therapists;
-        socket.syncUpdates('Therapist',$scope.therapists);
+       // socket.syncUpdates('Therapist',$scope.therapists);
       });
 
       if (!$scope.isId) {

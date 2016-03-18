@@ -1,0 +1,3 @@
+rhc setup
+rhc port-forward
+rhc port-forward -a feetclinic
