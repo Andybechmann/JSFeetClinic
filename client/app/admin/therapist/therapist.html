@@ -8,12 +8,11 @@
                   ng-repeat="therapist in therapists" >
       <img class="md-avatar" src="{{therapist.imageUrl}}" />
       <div class="md-list-item-text" layout="column">
-        <h2>{{therapist.Name}}</h2>
-        <h3>{{therapist.Description}}</h3>
+        <h2>{{therapist.name}}</h2>
+        <h3>{{therapist.description}}</h3>
       </div>
       <md-button class="md-secondary" ng-click="deleteTherapist(therapist)">
         <i class="material-icons">delete_forever</i>
-        <img src="../../../assets/images/1.jpg">
       </md-button>
 
     </md-list-item>
