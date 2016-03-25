@@ -1,0 +1,21 @@
+<admin-navbar></admin-navbar>
+<div class="container">
+  <div ng-cloak layout="row">
+    <md-content>
+      <md-list flex>
+        <md-list-item class="md-3-line md-long-text" ng-repeat="therapist in therapists" ng-click="goToTherapist(therapist)">
+          <img ng-src="{{therapist.imageUrl}}" class="md-avatar" alt="{{therapist.name}}" />
+          <div class="md-list-item-text" flex="80">
+            <h2>{{ therapist.name }}</h2>
+            <p style="font-size:140%">
+              {{therapist.description}}
+            </p>
+          </div>
+          <md-button class="md-secondary" ng-click="confirmDelete(therapist)" flex="10">
+            <i class="material-icons">delete_forever</i>
+          </md-button>
+        </md-list-item>
+      </md-list>
+    </md-content>
+  </div>
+</div>

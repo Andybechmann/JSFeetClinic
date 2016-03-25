@@ -6,22 +6,13 @@ angular.module('feetClinicApp')
       {
         id: '@id'
       }, {
-        update: {
-          method: 'put'
-        }
-      },
-      {
-        myNewMethod:{
-          method:'GET',params:{
-            controller:'weeks'
-          }
-        }
+        update: {method: 'PUT'}
       },
       {
         get:{method:'GET',isArray:false}
       },
       {
-        query:{method:'GET',isArray:true, cache:false}
+        query:{method:'GET',isArray:true}
       }
     );
     });

@@ -50,6 +50,10 @@ Therapist.find({}).removeAsync()
           licensed: false
         },{name:'Fodbehandling',
           licensed: true}
+        ],
+        holiday:[
+          {startDate:new Date(2016,2,1,0,0),endDate: new Date(2016,2,15,0,0)},
+          {startDate:new Date(2016,4,1,0,0),endDate: new Date(2016,4,15,0,0)}
         ]
     },{
         name:'kathe',
@@ -62,24 +66,23 @@ Therapist.find({}).removeAsync()
           licensed: true}
         ]
     },{
-        name:'test1',
-        description:'Erfaring behandler',
+        name:'Kathe Lorenzen',
+        description:'Jeg blev lægeeksamineret fodplejer i Sept. 2012. Uddannelsen har jeg taget i Aulum, hvor jeg også har taget kursus i Kinesisk fodmassage samt Gellac. Hotstonemassagen har jeg taget hos Sabine Bruhn (Ringkøbing massage og wellnes). Jeg har også kursus i Shellac fra CND, som jeg også forhandler i klinikken.' +
+        'Min klinik ligger i Sønderris i Esbjerg, og det vil glæde mig at se dig til en personlig samt nærværende behandling, hvor velvære er i centrum' +
+        'Dine fødder skal bære rundt på din krop lige fra den dag, du tager dine første skridt. Det er en belastning, som faktisk er meget større, end de fleste går rundt og tror' +
+        'De fleste fodlidelser og problemer kan forebygges, hvis du giver dine fødder et par minutters opmærksomhed hver dag' +
+        'Du har kun det ene par, som skal bære dig gennem hele livet, men ofte glemmer du at pleje dem, fordi de bliver gemt væk i strømper og sko den lange dag. Du bliver først opmærksom på dine fødder, når de bliver ømme eller noget gør ondt i dem.' +
+        'Smukke fødder giver velvære for krop og sjæl – dit velvære spejler sig i dit udseende, og giver dig indre og ydre skønhed' ,
         imageUrl:"../../assets/images/2.jpg",
         treatments:[{
           name:'Luksus Fodbehandling',
           licensed: false
         },{name:'Fodbehandling',
           licensed: true}
-        ]
-    },{
-        name:'test2',
-        description:'Erfaring behandler',
-        imageUrl:"../../assets/images/2.jpg",
-        treatments:[{
-          name:'Luksus Fodbehandling',
-          licensed: false
-        },{name:'Fodbehandling',
-          licensed: true}
+        ],
+        holiday:[
+          {startDate:new Date(2016,2,1),endDate: new Date(2016,2,15)},
+          {startDate:new Date(2016,4,1),endDate: new Date(2016,4,15)}
         ]
     }
     );

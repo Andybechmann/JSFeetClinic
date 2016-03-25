@@ -9,7 +9,7 @@ angular.module('feetClinicApp')
       },
       {
         'title': 'Behandler',
-        'state': 'adminTherapist'
+        'state': 'adminTherapists'
       },
       {
         'title': 'Behandling',
