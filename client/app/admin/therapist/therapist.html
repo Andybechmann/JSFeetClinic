@@ -1,83 +1,74 @@
 <admin-navbar></admin-navbar>
 <br>
-<div class="container">
+<div class="container" ng-cloak>
   <div>
-    <h3>{{therapist.name}}</h3>
+    <h3 layout="row" layout-align="center center" class="md-padding">{{therapist.name}}</h3>
     <form name="therapistForm">
-
-      <div id="generalInformation">
-        <button type="button" class="btn btn-primary" ng-click="generalClick()">{{generalLabel}}</button>
-        <br>
-        <div uib-collapse="!showGeneral">
-          <br>
-          <md-input-container class="md-block">
-            <label>Name</label>
-            <input ng-model="therapist.name">
-          </md-input-container>
-          <md-input-container class="md-block">
-            <label>About</label>
-            <textarea ng-model="therapist.description" md-maxlength="1500" rows="12" md-select-on-focus></textarea>
-          </md-input-container>
-        </div>
-        <br>
-      </div>
-
-      <div id="licensedTreatments">
-        <button type="button" class="btn btn-primary" ng-click="treatmentClick()">{{treatmentLabel}}</button>
-        <hr>
-        <div uib-collapse="!showTreatment">
-          <md-list>
-            <md-list-item ng-repeat="treatment in therapist.treatments">
-              <h3><p>{{treatment.name}}</p></h3>
-              <md-checkbox class="md-secondary" ng-model="treatment.licensed"></md-checkbox>
-            </md-list-item>
-          </md-list>
-        </div>
-      </div>
-
-      <div id="holidays">
-        <button type="button" class="btn btn-primary" ng-click="holidayClick()">{{holidayLabel}}</button>
-        <hr>
-        <div uib-collapse="!showHoliday">
-          <md-list>
-            <md-subheader class="md-no-sticky"> <h3>Feries</h3></md-subheader>
-            <md-list-item ng-repeat="holiday in therapist.holiday" class="noright">
-              <div flex="20">
-                fra
-                <h3>{{holiday.startDate | date:'dd-MM-yyyy'}}</h3>
-              </div>
-              <div flex="20">
-                til
-                <h3>{{holiday.endDate | date:'dd-MM-yyyy'}}</h3>
-              </div>
-
-              <section layout="row"  layout-align="center center" layout-wrap class="md-secondary" flex>
-                <md-button class="md-fab md-primary md-icon-button" ng-click="editHoliday(holiday)">
-                  <i class="material-icons">mode_edit</i>
-                </md-button>
-                <md-button class="md-fab md-mini md-icon-button" ng-click="deleteHoliday(holiday)">
-                  <i class="material-icons">delete</i>
-                </md-button>
-              </section>
-              <md-divider>
-            </md-list-item>
-          </md-list>
-          <md-button class="md-fab  md-icon-button" ng-click="addHoliday()">
-            <i class="material-icons">add</i>
-          </md-button>
-
-        </div>
-      </div>
-
-      <div id="openingHours">
-        <button type="button" class="btn btn-primary" ng-click="hoursClick()">{{hoursLabel}}</button>
-        <hr>
-        <div uib-collapse="!showHours">
-          hours
+      <uib-accordion close-others="false">
+        <div id="generalInformation">
+          <uib-accordion-group heading="{{generalLabel}}" is-open="showGeneral" ng-click="generalClick()">
+            <br>
+            <md-input-container class="md-block " >
+              <label>Name</label>
+              <input ng-model="therapist.name">
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>About</label>
+              <textarea ng-model="therapist.description" md-maxlength="1500" rows="12" md-select-on-focus></textarea>
+            </md-input-container>
+          </uib-accordion-group>
         </div>
 
-      </div>
+        <div id="licensedTreatments">
+          <uib-accordion-group heading="{{treatmentLabel}}" is-open="showTreatment" ng-click="treatmentClick()">
+            <md-list>
+              <md-list-item ng-repeat="treatment in therapist.treatments">
+                <h3><p>{{treatment.name}}</p></h3>
+                <md-checkbox class="md-secondary" ng-model="treatment.licensed"></md-checkbox>
+              </md-list-item>
+            </md-list>
+          </uib-accordion-group>
+        </div>
 
+        <div id="holidays">
+          <uib-accordion-group heading="{{holidayLabel}}" is-open="showHoliday" ng-click="holidayClick()">
+            <md-list>
+              <md-subheader class="md-no-sticky"><h3>Feries</h3></md-subheader>
+              <md-list-item ng-repeat="holiday in therapist.holiday | orderBy:'startDate'" class="noright">
+                <div flex="20">
+                  fra
+                  <h3>{{holiday.startDate | date:'dd-MM-yyyy'}}</h3>
+                </div>
+                <div flex="20">
+                  til
+                  <h3>{{holiday.endDate | date:'dd-MM-yyyy'}}</h3>
+                </div>
+
+                <section layout="row" layout-align="center center" layout-wrap class="md-secondary" flex>
+                  <md-button class="md-fab md-primary md-icon-button" ng-click="editHolidayDialog(holiday)">
+                    <i class="material-icons">mode_edit</i>
+                  </md-button>
+                  <md-button class="md-fab md-mini md-icon-button" ng-click="deleteHolidayDialog(holiday)">
+                    <i class="material-icons">delete</i>
+                  </md-button>
+                </section>
+                <md-divider>
+              </md-list-item>
+            </md-list>
+            <md-button class="md-fab  md-icon-button" ng-click="addHolidayDialog()">
+              <i class="material-icons">add</i>
+            </md-button>
+          </uib-accordion-group>
+        </div>
+
+        <div id="openingHours">
+          <uib-accordion-group heading="{{hoursLabel}}" ng-click="hoursClick()">
+            hours
+          </uib-accordion-group>
+        </div>
+
+
+      </uib-accordion>
       <div>
         <button type="button" class="btn btn-primary" ng-click="updateTherapist()"> Save</button>
       </div>

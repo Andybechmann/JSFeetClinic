@@ -1,78 +1,134 @@
 'use strict';
 
 angular.module('feetClinicApp')
-    .controller('AdminTherapistCtrl', function ($state,$stateParams,$scope,TherapistService,socket) {
-      //---- init -----
-      $scope.showGeneral = false;
-      $scope.generalLabel = 'Vis general information';
+  .controller('AdminTherapistCtrl', function ($state, $stateParams, $scope, TherapistService, $mdDialog, $mdMedia) {
+    //---- init -----
+    $scope.showGeneral = false;
+    $scope.generalLabel = 'General information';
 
-      $scope.showHoliday = false;
-      $scope.holidayLabel = 'Vis ferie';
+    $scope.showHoliday = false;
+    $scope.holidayLabel = 'Ferie';
 
-      $scope.showTreatment = false;
-      $scope.treatmentLabel = 'Vis behandlinger';
+    $scope.showTreatment = false;
+    $scope.treatmentLabel = 'Behandlinger';
 
-      $scope.showHours = false;
-      $scope.hoursLabel = 'Vis åbningstider';
-
-
-      TherapistService.get({id: $stateParams.id}, function (therapist) {
-        $scope.therapist = therapist;
-        socket.syncUpdates('Therapist',$scope.therapist);
-      });
-
-      $scope.updateTherapist = function() {
-        console.log($scope.therapist);
-        TherapistService.update({  id: $scope.therapist._id},$scope.therapist,
-          function(therapist) {
-            $scope.therapist = therapist;
-          });};
+    $scope.showHours = false;
+    $scope.hoursLabel = 'Åbningstider';
 
 
-
-
-      $scope.generalClick = function(){
-        $scope.showGeneral = !$scope.showGeneral;
-        if ($scope.showGeneral) {
-          $scope.generalLabel = 'Skjul general information';
-        }
-        else {
-          $scope.generalLabel = 'Vis general information';
-        };
-      };
-
-      $scope.holidayClick = function(){
-        $scope.showHoliday = !$scope.showHoliday;
-        if ($scope.showHoliday) {
-          $scope.holidayLabel = 'Skjul ferie';
-        }
-        else {
-          $scope.holidayLabel = 'Vis ferie';
-        };
-      };
-
-      $scope.treatmentClick = function(){
-        $scope.showTreatment = !$scope.showTreatment;
-        if ($scope.showTreatment) {
-          $scope.treatmentLabel = 'Skjul behandlinger';
-        }
-        else {
-          $scope.treatmentLabel = 'Vis behandlinger';
-        };
-      };
-
-      $scope.hoursClick = function(){
-        $scope.showHours = !$scope.showHours;
-        if ($scope.showHours) {
-          $scope.hoursLabel = 'Skjul åbningstider';
-        }
-        else {
-          $scope.hoursLabel = 'Vis åbningstider';
-        };
-      };
-
-
+    TherapistService.get({id: $stateParams.id}, function (therapist) {
+      $scope.therapist = therapist;
     });
+// -------------------  init finish -----------------------
+    $scope.addHolidayDialog = function() {
+      $mdDialog.show({
+          controller: HolidayDialogController,
+          locals:{holiday:null},
+          templateUrl: 'app/admin/therapist/chooseDatesDialog.html',
+          parent: angular.element(document.body),
+          clickOutsideToClose: true,
+          fullscreen: true
+        })
+        .then(function (holiday) {
+          addHoliday(holiday);
+        }, function () {
+          //do nothing
+        });
+    };
+
+    $scope.editHolidayDialog = function (holidayToEdit) {
+      $mdDialog.show({
+          controller: HolidayDialogController,
+          locals:{holiday:holidayToEdit},
+          templateUrl: 'app/admin/therapist/chooseDatesDialog.html',
+          parent: angular.element(document.body),
+          clickOutsideToClose: true,
+          fullscreen: true
+        })
+        .then(function (editedHoliday) {
+          deleteHoliday(holidayToEdit);
+          addHoliday(editedHoliday);
+        }, function () {
+          //do nothing
+        });
+
+    };
+
+
+    $scope.deleteHolidayDialog = function (holiday) {
+      var confirm = $mdDialog.confirm()
+        .title('Ønsker du at slette denne ferieperiode?')
+        .textContent('Du kan ikke fortryde denne handling bagefter !!!')
+        .ok('Forsæt')
+        .cancel('Fortryd');
+      $mdDialog.show(confirm).then(function () {
+        deleteHoliday(holiday);
+      }, function () {
+        //do nothing if cancelled
+      });
+    };
+
+    var deleteHoliday = function (holiday) {
+      var index = _.indexOf($scope.therapist.holiday, holiday);
+      if (index > -1) {
+        $scope.therapist.holiday.splice(index, 1);
+      }
+    };
+
+    var addHoliday = function(holiday) {
+      $scope.therapist.holiday.push(holiday);
+    };
+
+    $scope.updateTherapist = function () {
+      console.log($scope.therapist);
+      TherapistService.update({id: $scope.therapist._id}, $scope.therapist,
+        function (therapist) {
+          $scope.therapist = therapist;
+        });
+    };
+
+    $scope.generalClick = function () {
+      $scope.showGeneral = !$scope.showGeneral;
+    };
+
+    $scope.holidayClick = function () {
+      $scope.showHoliday = !$scope.showHoliday;
+    };
+
+    $scope.treatmentClick = function () {
+      $scope.showTreatment = !$scope.showTreatment;
+    };
+
+    $scope.hoursClick = function () {
+      $scope.showHours = !$scope.showHours;
+    };
+  });
+
+
+function HolidayDialogController($scope, $mdDialog,holiday) {
+  $scope.minDate = new Date;
+  if (holiday !== null) {
+    $scope.startDate = new Date( holiday.startDate );
+    $scope.endDate = new Date (holiday.endDate);
+  }
+  else {
+    $scope.startDate = new Date;
+    $scope.endDate = new Date;
+  };
+
+  $scope.cancel = function () {
+    $mdDialog.cancel();
+  };
+  $scope.firstDateClicked = function () {
+    $scope.endDate = $scope.startDate;
+  };
+  $scope.saveHoliday = function () {
+    var holiday = {startDate: $scope.startDate, endDate: $scope.endDate};
+    $mdDialog.hide(holiday);
+  };
+}
+
+
 /*
  TherapistService.get({id: $stateParams.id}, function (therapist) {
  $scope.therapist = therapist;
