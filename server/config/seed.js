@@ -40,6 +40,43 @@ Therapist.find({}).removeAsync()
         licensed: true
       },{name:'Fodbehandling',
         licensed: true}
+      ],
+      dayWorking:[
+        {
+          dayOfWeek:'Mandag',
+          active: true,
+          openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+        },
+        {
+          dayOfWeek:'Tirsdag',
+          active: true,
+          openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+        },
+        {
+          dayOfWeek:'Onsdag',
+          active: true,
+          openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+        },
+        {
+          dayOfWeek:'Torsdag',
+          active: true,
+          openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+        },
+        {
+          dayOfWeek:'Fredag',
+          active: true,
+          openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+        },
+        {
+          dayOfWeek:'Lørdag',
+          active: false,
+          openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+        },
+        {
+          dayOfWeek:'Søndag',
+          active: false,
+          openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+        }
       ]
     },{
         name:'Ievgenii',
@@ -50,6 +87,43 @@ Therapist.find({}).removeAsync()
           licensed: false
         },{name:'Fodbehandling',
           licensed: true}
+        ],
+        dayWorking:[
+          {
+            dayOfWeek:'Mandag',
+            active: true,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          },
+          {
+            dayOfWeek:'Tirsdag',
+            active: true,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          },
+          {
+            dayOfWeek:'Onsdag',
+            active: true,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          },
+          {
+            dayOfWeek:'Torsdag',
+            active: true,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          },
+          {
+            dayOfWeek:'Fredag',
+            active: true,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          },
+          {
+            dayOfWeek:'Lørdag',
+            active: false,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          },
+          {
+            dayOfWeek:'Søndag',
+            active: false,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          }
         ],
         holiday:[
           {startDate:new Date(2016,2,1,0,0),endDate: new Date(2016,2,15,0,0)},
@@ -64,6 +138,43 @@ Therapist.find({}).removeAsync()
           licensed: false
         },{name:'Fodbehandling',
           licensed: true}
+        ],
+        dayWorking:[
+          {
+            dayOfWeek:'Mandag',
+            active: true,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          },
+          {
+            dayOfWeek:'Tirsdag',
+            active: true,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          },
+          {
+            dayOfWeek:'Onsdag',
+            active: true,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          },
+          {
+            dayOfWeek:'Torsdag',
+            active: true,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          },
+          {
+            dayOfWeek:'Fredag',
+            active: true,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          },
+          {
+            dayOfWeek:'Lørdag',
+            active: false,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          },
+          {
+            dayOfWeek:'Søndag',
+            active: false,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          }
         ]
     },{
         name:'Kathe Lorenzen',
@@ -79,6 +190,43 @@ Therapist.find({}).removeAsync()
           licensed: false
         },{name:'Fodbehandling',
           licensed: true}
+        ],
+        dayWorking:[
+          {
+            dayOfWeek:'Mandag',
+            active: true,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          },
+          {
+            dayOfWeek:'Tirsdag',
+            active: true,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          },
+          {
+            dayOfWeek:'Onsdag',
+            active: true,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          },
+          {
+            dayOfWeek:'Torsdag',
+            active: true,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          },
+          {
+            dayOfWeek:'Fredag',
+            active: true,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          },
+          {
+            dayOfWeek:'Lørdag',
+            active: false,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          },
+          {
+            dayOfWeek:'Søndag',
+            active: false,
+            openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          }
         ],
         holiday:[
           {startDate:new Date(2016,2,1),endDate: new Date(2016,2,15)},

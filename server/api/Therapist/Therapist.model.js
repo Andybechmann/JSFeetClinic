@@ -19,13 +19,11 @@ var TherapistSchema = new mongoose.Schema({
     type: Schema.ObjectId,
     ref:'Booking'
   }],
-
   dayWorking:[{
-    dayOfWeek: Number,
-    startTime:Date,
-    endTime: Date,
-    StartLunch: Date,
-    lunchDuration:Number
+    dayOfWeek:{type:String,unique: true} ,
+    active:Boolean,
+    openingHours:{startTime:Date,endTime:Date},
+    pauses:[{startTime:Date,endTime:Date}]
   }],
    holiday:[{
      startDate:Date,
