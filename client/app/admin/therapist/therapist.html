@@ -8,7 +8,7 @@
         <div id="generalInformation">
           <uib-accordion-group heading="{{generalLabel}}" is-open="showGeneral" ng-click="generalClick()">
             <br>
-            <md-input-container class="md-block " >
+            <md-input-container class="md-block ">
               <label>Name</label>
               <input ng-model="therapist.name">
             </md-input-container>
@@ -34,7 +34,7 @@
           <uib-accordion-group heading="{{holidayLabel}}" is-open="showHoliday" ng-click="holidayClick()">
             <md-list>
               <md-subheader class="md-no-sticky"><h3>Feries</h3></md-subheader>
-              <md-list-item ng-repeat="holiday in therapist.holiday | orderBy:'startDate'" class="noright">
+              <md-list-item ng-repeat="holiday in therapist.holidays | orderBy:'startDate'" class="noright">
                 <div flex="20">
                   fra
                   <h3>{{holiday.startDate | date:'dd-MM-yyyy'}}</h3>
@@ -63,7 +63,34 @@
 
         <div id="openingHours">
           <uib-accordion-group heading="{{hoursLabel}}" ng-click="hoursClick()">
-            hours
+
+            <md-list>
+              <md-list-item ng-repeat="day in therapist.dayWorking">
+                <div layout="column" flex>
+                  <div layout="row">
+                    <div layout="row" layout-align="start" flex="50">
+                    <md-switch class="md-primary" ng-model="day.active" >
+                      {{day.dayOfWeek}}
+                    </md-switch>
+                    </div>
+
+                    <div layout="row" layout-align="end" flex="50">
+                      <md-checkbox ng-model="day.active">
+                        {{day.dayOfWeek}}
+                      </md-checkbox>
+                    </div>
+                  </div>
+
+                  <div flex="100" ng-if="day.active">
+                    <rzslider
+                      rz-slider-model="daySliders[$index].openingHours.min"
+                      rz-slider-high="daySliders[$index].openingHours.max"
+                      rz-slider-options="daySliders[$index].openingHours.options"></rzslider>
+                  </div>
+                </div>
+
+              </md-list-item>
+            </md-list>
           </uib-accordion-group>
         </div>
 

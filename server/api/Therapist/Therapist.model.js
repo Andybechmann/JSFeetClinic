@@ -20,7 +20,7 @@ var TherapistSchema = new mongoose.Schema({
     ref:'Booking'
   }],
   dayWorking:[{
-    dayOfWeek:{type:String,unique: true} ,
+    dayOfWeek:{type:String,unique: true},
     active:Boolean,
     openingHours:{startTime:Date,endTime:Date},
     pauses:[{startTime:Date,endTime:Date}]

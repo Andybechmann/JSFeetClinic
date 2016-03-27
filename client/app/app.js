@@ -12,9 +12,11 @@ angular.module('feetClinicApp', [
     'ui.bootstrap',
     'validation.match',
     'ngMaterial',
-    'ngMessages'
+    'ngMessages',
+    'rzModule'
+
   ])
-  .config(function($urlRouterProvider, $locationProvider) {
+  .config(function ($urlRouterProvider, $locationProvider) {
     $urlRouterProvider
       .otherwise('/');
 
