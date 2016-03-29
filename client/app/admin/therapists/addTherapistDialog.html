@@ -1,0 +1,49 @@
+<md-dialog flex>
+  <form name="createTherapistForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Opretelse af ny behandler</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <i class="material-icons">close</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content layout="row" >
+      <div class="md-dialog-content" flex>
+        <div id="generalInformation" >
+            <br>
+            <md-input-container class="md-block " >
+              <label>Name</label>
+              <input ng-model="newTherapist.name" type="text" md-maxlength="200" required name="name">
+            </md-input-container>
+            <md-input-container class="md-block" >
+              <label>About</label>
+              <textarea ng-model="newTherapist.description" required md-maxlength="1500" rows="12" md-select-on-focus></textarea>
+            </md-input-container>
+        </div>
+        <div id="treatments">
+          <md-list>
+            <md-list-item ng-repeat="treatment in newTherapist.treatments" >
+              <h3><p>{{treatment.name}}</p></h3>
+              <md-checkbox class="md-secondary" ng-model="treatment.licensed"></md-checkbox>
+            </md-list-item>
+          </md-list>
+        </div>
+
+
+      </div>
+
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button ng-click="cancel()">
+        Fortryd
+      </md-button>
+      <md-button ng-click="saveTherapist(newTherapist)">
+        Gem
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

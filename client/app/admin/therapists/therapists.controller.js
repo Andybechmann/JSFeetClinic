@@ -22,21 +22,17 @@ angular.module('feetClinicApp')
       TherapistService.delete({id:therapistToDel._id}, function(therapist){});
     };
 
-/*
-    $scope.createTherapist = function(){
-      TherapistService.save($scope.newTherapist,function(therapist){
-        console.log(therapist);
+
+    $scope.createTherapist = function(newTherapist){
+      TherapistService.save(newTherapist,function(therapist){
+       // console.log(therapist);
       });
     };
-  */
-
 
     $scope.confirmDelete = function(therapist){
-      console.log('confirm dialog');
       var confirm = $mdDialog.confirm()
         .title('Ønsker du at slette denne behandler?')
         .textContent('Du kan ikke fortryde denne handling bagefter !!!')
-        .ariaLabel('Lucky day')
         .ok('Forsæt')
         .cancel('fortryd');
       $mdDialog.show(confirm).then(function() {
@@ -46,4 +42,47 @@ angular.module('feetClinicApp')
       });
     };
 
+    $scope.addTherapistDialog = function() {
+      $mdDialog.show({
+          controller: TherapistDialogController,
+          templateUrl: 'app/admin/therapists/addTherapistDialog.html',
+          parent: angular.element(document.body),
+          clickOutsideToClose: true,
+          fullscreen: true
+        })
+        .then(function (therapist) {
+          $scope.createTherapist(therapist)
+        }, function () {
+          //do nothing
+        });
+    };
+
   });
+
+
+function TherapistDialogController($scope, $mdDialog,TreatmentService) {
+  $scope.newTherapist = {
+    name:'',
+    description:'',
+    imageUrl:'',
+    treatments:[]
+  };
+
+  TreatmentService.query(function(treatments){
+    for(var i = 0; i<treatments.length; i++){
+      $scope.newTherapist.treatments.push({
+        name:treatments[i].name,
+        licensed: false
+      });
+    }
+  });
+
+  $scope.cancel = function () {
+    $mdDialog.cancel();
+  };
+
+  $scope.saveTherapist = function (therapist) {
+    $mdDialog.hide(therapist);
+  };
+};
+

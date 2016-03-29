@@ -221,31 +221,3 @@ function HolidayDialogController($scope, $mdDialog,holiday) {
   };
 };
 
-
-
-/*
- TherapistService.get({id: $stateParams.id}, function (therapist) {
- $scope.therapist = therapist;
- socket.syncUpdates('Therapist',$scope.therapist);
- });
-
- $scope.$on('$destroy',function() {
- socket.unsyncUpdates('Therapist');
- });
-
- //-- start  C R U D
- $scope.createTherapist = function(){
- TherapistService.save($scope.newTherapist, function(therapist){
- })
- };
-
-
- $scope.readTherapist = function() {
-
- };
-
-
- };
-
- */
-

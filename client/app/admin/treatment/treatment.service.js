@@ -8,13 +8,6 @@ angular.module('feetClinicApp')
       update: {
         method: 'put'
       }
-    },
-    {
-      myNewMethod:{
-        method:'GET',params:{
-          controller:'weeks'
-        }
-      }
     }
   );
   });

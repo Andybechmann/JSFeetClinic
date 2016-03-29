@@ -34,7 +34,7 @@
           <uib-accordion-group heading="{{holidayLabel}}" is-open="showHoliday" ng-click="holidayClick()">
             <md-list>
               <md-subheader class="md-no-sticky"><h3>Feries</h3></md-subheader>
-              <md-list-item ng-repeat="holiday in therapist.holidays | orderBy:'startDate'" class="noright">
+              <md-list-item ng-repeat="holiday in therapist.holiday | orderBy:'startDate'" class="noright">
                 <div flex="20">
                   fra
                   <h3>{{holiday.startDate | date:'dd-MM-yyyy'}}</h3>
