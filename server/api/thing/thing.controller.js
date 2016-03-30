@@ -74,6 +74,17 @@ export function show(req, res) {
     .catch(handleError(res));
 }
 
+/*
+export function show(req, res) {
+  Thing.findById(req.params.id)
+    .select('name')
+    .execAsync()
+    .then(handleEntityNotFound(res))
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+*/
+
 // Creates a new Thing in the DB
 export function create(req, res) {
   Thing.createAsync(req.body)

@@ -62,6 +62,7 @@ angular.module('feetClinicApp')
       });
     };
 
+
     $scope.updateTherapist = function () {
       console.log($scope.therapist);
       TherapistService.update({id: $scope.therapist._id}, $scope.therapist,
@@ -154,7 +155,6 @@ angular.module('feetClinicApp')
       var date = new Date(time);
       var h = date.getHours();
       var m = date.getMinutes();
-
       var result = h * 12 + m / 5;
       // console.log(time + '-->' + result);
       return result;
@@ -162,11 +162,11 @@ angular.module('feetClinicApp')
     };
 
     var translateNumberToTime = function(number){
-      //console.log('start translate into time');
-      var h = number / 12;
-      var m = (number - h * 12 ) * 5;
-      var date = new Date(2010,10,10,h,m);
-      //  console.log(number + '-->' + date);
+//      console.log('start translate into time');
+      var hour = parseInt(number / 12);
+      var minute = (number - hour * 12 ) * 5;
+      var date = new Date(2010,10,10,hour,minute);
+//      console.log(number + '-->'+'t:' + hour + ' min:' + minute + ' ' + date);
       return date;
 
     };
@@ -184,8 +184,6 @@ angular.module('feetClinicApp')
     };
 
 
-
-
     var refreshSlider = function () {
       console.log('refreshed');
       $timeout(function () {
@@ -194,8 +192,6 @@ angular.module('feetClinicApp')
     };
 
   });
-
-
 
 
 function HolidayDialogController($scope, $mdDialog,holiday) {

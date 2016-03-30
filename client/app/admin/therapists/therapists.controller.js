@@ -65,17 +65,41 @@ function TherapistDialogController($scope, $mdDialog,TreatmentService) {
     name:'',
     description:'',
     imageUrl:'',
-    treatments:[]
+    treatments:[],
+    dayWorking: [],
+    holiday : []
   };
 
-  TreatmentService.query(function(treatments){
+  TreatmentService.query({only:'name'},function(treatments){
     for(var i = 0; i<treatments.length; i++){
       $scope.newTherapist.treatments.push({
         name:treatments[i].name,
         licensed: false
       });
+    };
+
+    for (var i = 1; i < 8; i++){
+      $scope.newTherapist.dayWorking.push({
+        dayOfWeek: dayToString(i),
+        active: false,
+        openingHours:{startTime: new Date(2010,10,10,7,0), endTime: new Date(2010,10,10,15,0)},
+        pauses:[]
+      });
     }
   });
+
+  var dayToString = function (numberOfDay) {
+    switch(numberOfDay) {
+      case 1: {return 'Mandag';}
+      case 2: {return 'Tirsdag';}
+      case 3: {return 'Onsdag';}
+      case 4: {return 'Torsdag';}
+      case 5: {return 'Fredag';}
+      case 6: {return 'Lørdag';}
+      case 7: {return 'Søndag';}
+      default: {return 'Ikke angivet';}
+    }
+  };
 
   $scope.cancel = function () {
     $mdDialog.cancel();

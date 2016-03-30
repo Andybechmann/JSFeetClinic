@@ -6,8 +6,9 @@ angular.module('feetClinicApp')
       id: '@id'
     }, {
       update: {
-        method: 'put'
+        method: 'PUT'
       }
     }
   );
   });
+

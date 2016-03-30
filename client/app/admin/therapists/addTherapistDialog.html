@@ -16,24 +16,22 @@
             <br>
             <md-input-container class="md-block " >
               <label>Name</label>
-              <input ng-model="newTherapist.name" type="text" md-maxlength="200" required name="name">
+              <input ng-model="newTherapist.name" type="text" md-maxlength="200" required name="tName">
+
+              <div ng-messages="createTherapistForm.tName.$error">
+                <div ng-message="required">This is required.</div>
+              </div>
+
             </md-input-container>
             <md-input-container class="md-block" >
               <label>About</label>
               <textarea ng-model="newTherapist.description" required md-maxlength="1500" rows="12" md-select-on-focus></textarea>
             </md-input-container>
         </div>
-        <div id="treatments">
-          <md-list>
-            <md-list-item ng-repeat="treatment in newTherapist.treatments" >
-              <h3><p>{{treatment.name}}</p></h3>
-              <md-checkbox class="md-secondary" ng-model="treatment.licensed"></md-checkbox>
-            </md-list-item>
-          </md-list>
-        </div>
-
-
+        <h4> Vælg billede.... </h4>
+        <input type="file" file-change="yourHandler($event, files)" />
       </div>
+
 
     </md-dialog-content>
 
