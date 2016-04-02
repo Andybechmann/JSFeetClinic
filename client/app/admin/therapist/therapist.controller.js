@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('feetClinicApp')
-  .controller('AdminTherapistCtrl', function ($state, $stateParams, $scope, TherapistService, $mdDialog,$timeout) {
+  .controller('AdminTherapistCtrl', function ($state, $stateParams, $scope, TherapistService, $mdDialog, $timeout) {
     //---- init -----
     $scope.showGeneral = false;
     $scope.generalLabel = 'General information';
@@ -15,10 +15,10 @@ angular.module('feetClinicApp')
     $scope.showHours = false;
     $scope.hoursLabel = 'Åbningstider';
 // -------------------  init finish -----------------------
-    $scope.addHolidayDialog = function() {
+    $scope.addHolidayDialog = function () {
       $mdDialog.show({
           controller: HolidayDialogController,
-          locals:{holiday:null},
+          locals: {holiday: null},
           templateUrl: 'app/admin/therapist/chooseDatesDialog.html',
           parent: angular.element(document.body),
           clickOutsideToClose: true,
@@ -33,7 +33,7 @@ angular.module('feetClinicApp')
     $scope.editHolidayDialog = function (holidayToEdit) {
       $mdDialog.show({
           controller: HolidayDialogController,
-          locals:{holiday:holidayToEdit},
+          locals: {holiday: holidayToEdit},
           templateUrl: 'app/admin/therapist/chooseDatesDialog.html',
           parent: angular.element(document.body),
           clickOutsideToClose: true,
@@ -91,7 +91,7 @@ angular.module('feetClinicApp')
         $scope.therapist.holiday.splice(index, 1);
       }
     };
-    var addHoliday = function(holiday) {
+    var addHoliday = function (holiday) {
       $scope.therapist.holiday.push(holiday);
     };
 
@@ -100,111 +100,239 @@ angular.module('feetClinicApp')
       passOpeningHoursSlider(therapist.dayWorking);
     });
 
-    var passOpeningHoursSlider = function(dayWorking){
+    var passOpeningHoursSlider = function (dayWorking) {
       $scope.daySliders = [];
-
-      for(var i = 0; i < dayWorking.length; i++){
-        var element = {};
-        var start,end;
-        if ("openingHours" in dayWorking[i] ){
-          if ("startTime" in  dayWorking[i].openingHours ){
-            start = translateTimeToNumber(dayWorking[i].openingHours.startTime);
+      for (var i = 0; i < dayWorking.length; i++) {
+        var workingDay = dayWorking[i];
+        var slider = {};
+        slider.day = workingDay.dayOfWeek;
+        slider.pauses = [];
+        var start, end;
+        if ("openingHours" in workingDay) {
+          if ("startTime" in workingDay.openingHours) {
+            start = translateTimeToNumber(workingDay.openingHours.startTime);
           }
-          else { start = 0; };
-          if ("endTime" in  dayWorking[i].openingHours ){
-            end = translateTimeToNumber(dayWorking[i].openingHours.endTime);
+          else {
+            start = 0;
           }
-          else { end = 288; };
+          ;
+          if ("endTime" in workingDay.openingHours) {
+            end = translateTimeToNumber(workingDay.openingHours.endTime);
+          }
+          else {
+            end = 288;
+          }
+          ;
         }
-        else{
+        else {
           start = 0;
           end = 288;
-        };
+        }
+        ;
         // slider for opening hours
-        element.openingHours = {
+        slider.openingHours = {
           min: start,
           max: end,
           options: {
             floor: 0,
             ceil: 288,
-            translate: function(value){
+            id: workingDay.dayOfWeek,
+            translate: function (value) {
               return translateNumberToTimeString(value);
             },
-            onEnd : function(){
-              synchronize();
+            onEnd: function (id,start,end) {
+              synchronizeOpeningHours(id,start,end);
             }
           }
         };
-        $scope.daySliders.push(element);
+        //sliders for pauses
+        for (var j = 0; j < workingDay.pauses.length; j++) {
+          var el = {
+            min: translateTimeToNumber( workingDay.pauses[j].startTime),
+            max: translateTimeToNumber( workingDay.pauses[j].endTime),
+            options: {
+              floor: start,
+              ceil: end,
+              id:workingDay.dayOfWeek + j,
+              draggableRangeOnly: true,
+              translate: function (value) {
+                return translateNumberToTimeString(value);
+              },
+              onEnd: function (id,start,end) {
+                synchronizePause(id,start,end);
+              }
+            }
+          };
+          slider.pauses[j] = el;
+        }
+        slider.numberOfPauses = {
+          value: workingDay.pauses.length,
+          options: {
+            floor: 0,
+            ceil: 4,
+            id: workingDay.dayOfWeek,
+            showTicks: true,
+            onEnd: function (dayId,value) {
+              numberOfPausesChanged(dayId,value);
+            }
+          }
+        };
+        $scope.daySliders[i] = slider;
       } // end loop
     };
 
-    var synchronize = function(){
-      for(var i = 0; i < $scope.therapist.dayWorking.length; i++){
-        console.log(i);
-        var oh = $scope.therapist.dayWorking[i].openingHours;
-        oh.startTime =
-          translateNumberToTime( $scope.daySliders[i].openingHours.min);
-        oh.endTime =
-          translateNumberToTime( $scope.daySliders[i].openingHours.max);
+    var numberOfPausesChanged = function(dayId,value){
+      var workingDay = _($scope.therapist.dayWorking).find( day => day.dayOfWeek === dayId);//date
+      var daySlider = _($scope.daySliders).find( d => d.day === dayId);//numbers
+      var oldArray = workingDay.pauses;//date
+      var oldSliders = daySlider.pauses;//numbers
+      var difference = value - oldArray.length;
+      if (difference < 0){
+        for(var i = 0; i < Math.abs(difference); i++){
+          oldArray.splice( oldArray.length - 1, 1);
+          oldSliders.splice(oldSliders.length - 1 , 1);
+        }
+      }
+      else if(difference > 0 ){
+        for(var i = 0; i < Math.abs(difference); i++){
+          var pause = oldArray[oldArray.length -1];
+          var sliderPause = oldSliders[oldSliders.length - 1 ];
+
+          var newPause={};//date
+          var newSlider={};//numbers
+          var sliderId;
+          var start;
+          var end;
+          if(sliderPause == null){
+            start = daySlider.openingHours.min;
+            end = daySlider.openingHours.min + 6;
+            sliderId = daySlider.day + 0;
+          }
+          else{
+            var id = sliderPause.options.id;
+            var index = parseInt( id.substring( id.length-1 , id.length)); // take last symbol in  id
+            var nameOfDay = id.substring(0,id.length - 1); //take the day as string
+            start = sliderPause.max;
+            end =   sliderPause.max + (sliderPause.max - sliderPause.min);
+            sliderId = nameOfDay+(index+1);
+          }
+
+          newSlider = {
+            min: start,
+            max: end ,
+            options: {
+              id:sliderId,
+              floor: daySlider.openingHours.min,
+              ceil: daySlider.openingHours.max,
+              draggableRangeOnly: true,
+              translate: function (value) {
+                return translateNumberToTimeString(value);
+              },
+              onEnd: function (id,start,end) {
+                synchronizePause(id,start,end);
+              }
+            }
+          };
+
+          //date
+          if (pause == null){
+            var timeStart = new Date(workingDay.openingHours.startTime);
+            newPause.startTime = timeStart;
+            var minutes = timeStart.getMinutes();
+            var timeEnd = new Date(workingDay.openingHours.startTime);
+            timeEnd.setMinutes(minutes + 30);
+            newPause.endTime = timeEnd;
+          }else {
+            var timeStart = new Date(pause.endTime);
+            newPause.startTime = timeStart;
+            var minutes = timeStart.getMinutes();
+            var timeEnd = new Date(pause.endTime);
+            timeEnd.setMinutes(minutes + 30);
+            newPause.endTime = timeEnd;
+          }
+          oldArray.push(newPause);
+          oldSliders.push(newSlider);
+        }
+      }else {
+      }
+    }
+
+    var synchronizePause = function (id,start,end) {
+      var index = parseInt( id.substring( id.length-1 , id.length)); // take last symbol in  id and
+      var nameOfDay = id.substring(0,id.length - 1);
+      var workingDay = _($scope.therapist.dayWorking).find( day => day.dayOfWeek === nameOfDay);
+      workingDay.pauses[index].startTime = translateNumberToTime(start);
+      workingDay.pauses[index].endTime =translateNumberToTime(end);
+    };
+    var synchronizeOpeningHours = function (id,start,end) {
+      var day = _($scope.therapist.dayWorking).find( day => day.dayOfWeek === id);
+      var startTime = translateNumberToTime(start);
+      var endTime = translateNumberToTime(end);
+      day.openingHours.startTime = startTime
+      day.openingHours.endTime = endTime;
+      var daySlider = _($scope.daySliders).find( d => d.day === id);
+      for(var i = 0; i < day.pauses.length; i++ ){
+        var duration = daySlider.pauses[i].max - daySlider.pauses[i].min;
+        daySlider.pauses[i].options.floor = start;
+        daySlider.pauses[i].options.ceil = end;
+
+        if (daySlider.pauses[i].min < start) {
+          daySlider.pauses[i].min = start;
+          daySlider.pauses[i].max = start + duration;
+        }
+
+        if (daySlider.pauses[i].max > end) {
+          daySlider.pauses[i].max = end;
+          daySlider.pauses[i].min = end - duration;
+        }
+
+
+
       }
     };
-
-    var translateTimeToNumber = function(time){
-      //  console.log('start translate into number');
+    var translateTimeToNumber = function (time) {
       var date = new Date(time);
       var h = date.getHours();
       var m = date.getMinutes();
       var result = h * 12 + m / 5;
-      // console.log(time + '-->' + result);
       return result;
-
     };
 
-    var translateNumberToTime = function(number){
-//      console.log('start translate into time');
+    var translateNumberToTime = function (number) {
       var hour = parseInt(number / 12);
       var minute = (number - hour * 12 ) * 5;
-      var date = new Date(2010,10,10,hour,minute);
-//      console.log(number + '-->'+'t:' + hour + ' min:' + minute + ' ' + date);
+      var date = new Date(2010, 10, 10, hour, minute);
       return date;
-
     };
 
-    var translateNumberToTimeString = function(number){
-      // console.log('start translate into string time');
+    var translateNumberToTimeString = function (number) {
       var allMinutes = number * 5;
       var h = parseInt(allMinutes / 60);
       var m = parseInt(allMinutes % 60);
       var hStr = (h > 0) ? h : '0';
-      var mStr = (m === 0) ? '00'  : ( (m <10) ? '0' + m : m );
+      var mStr = (m === 0) ? '00' : ( (m < 10) ? '0' + m : m );
       var glue = ':';
-      //console.log(number + '-->' + hStr + glue + mStr);
       return hStr + glue + mStr;
     };
-
-
     var refreshSlider = function () {
       console.log('refreshed');
       $timeout(function () {
         $scope.$broadcast('rzSliderForceRender');
       });
     };
-
   });
 
-
-function HolidayDialogController($scope, $mdDialog,holiday) {
+function HolidayDialogController($scope, $mdDialog, holiday) {
   $scope.minDate = new Date;
   if (holiday !== null) {
-    $scope.startDate = new Date( holiday.startDate );
-    $scope.endDate = new Date (holiday.endDate);
+    $scope.startDate = new Date(holiday.startDate);
+    $scope.endDate = new Date(holiday.endDate);
   }
   else {
     $scope.startDate = new Date;
     $scope.endDate = new Date;
-  };
-
+  }
+  ;
   $scope.cancel = function () {
     $mdDialog.cancel();
   };
@@ -216,4 +344,3 @@ function HolidayDialogController($scope, $mdDialog,holiday) {
     $mdDialog.hide(holiday);
   };
 };
-
