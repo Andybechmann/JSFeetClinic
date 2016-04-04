@@ -163,7 +163,7 @@ angular.module('feetClinicApp')
 
     var translateNumberToTime = function(number){
       //console.log('start translate into time');
-      var h = number / 12;
+      var h = parseInt (number / 12);
       var m = (number - h * 12 ) * 5;
       var date = new Date(2010,10,10,h,m);
       //  console.log(number + '-->' + date);
@@ -220,4 +220,3 @@ function HolidayDialogController($scope, $mdDialog,holiday) {
     $mdDialog.hide(holiday);
   };
 };
-

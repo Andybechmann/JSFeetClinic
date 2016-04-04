@@ -1,20 +1,28 @@
-<br>
-<div class="container">
+<div ng-cloak class="container">
 
-  <md-list ng-cloak>
-    <md-subheader class="md-no-sticky">Vores behandlinger</md-subheader>
-    <md-list-item class="md-3-line" ng-click="goToTreatment(treament)" ng-repeat="treatment in treatments">
-      <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" />
-      <div class="md-list-item-text" layout="column">
-        <h2>{{treatment.name}}</h2>
-        <h3>{{treatment.description}}</h3>
-        <h4>{{treatment.price}}kr</h4>
-      </div>
-
-    </md-list-item>
-  </md-list>
-    </md-list>
-  <br>
+  <md-content class="md-padding" layout-xs="column" layout="column">
 
 
+    <div flex-xs flex-gt-xs="50" layout="column" ng-repeat="treatment in treatments">
+
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">{{treatment.name}}</span>
+            <span class="md-subhead">{{treatment.description}}</span>
+          </md-card-title-text>
+          <md-card-title-media>
+            <div class="md-media-md card-media">
+              <img src ={{treatment.imageUrl}}>
+
+            </div>
+          </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button ng-if="isLoggedIn()">bookTime</md-button>
+          <md-button>detail</md-button>
+        </md-card-actions>
+      </md-card>
+    </div>
+  </md-content>
 </div>
