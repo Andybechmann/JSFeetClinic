@@ -3,8 +3,7 @@
   <md-content class="md-padding" layout-xs="column" layout="column">
 
 
-    <div flex-xs flex-gt-xs="50" layout="column" ng-repeat="treatment in treatments">
-
+    <div ng-if = "!isId()"flex-xs flex-gt-xs="50" layout="column" ng-repeat="treatment in treatments">
       <md-card>
         <md-card-title>
           <md-card-title-text>
@@ -20,9 +19,13 @@
         </md-card-title>
         <md-card-actions layout="row" layout-align="end center">
           <md-button ng-if="isLoggedIn()">bookTime</md-button>
-          <md-button>detail</md-button>
+          <md-button ng-click="goToDetail(treatment)">detail</md-button>
         </md-card-actions>
       </md-card>
     </div>
+    <div ng-if="isId()"> {{treatment.name}} </div>
+
+
+
   </md-content>
 </div>

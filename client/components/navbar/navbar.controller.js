@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('feetClinicApp')
-  .controller('NavbarController', function ($scope,Auth) {
+  .controller('NavbarController', function ($scope,Auth,$state) {
     $scope.menu = [{
       'title': 'Home',
       'state': 'main'
@@ -20,6 +20,11 @@ angular.module('feetClinicApp')
     }
 //regeg
   ];
+
+    $scope.goTo = function(item)
+    {
+      $state.go(item.state,{id:null});
+    };
     $scope.isCollapsed = true;
 
     $scope.isLoggedIn = Auth.isLoggedIn;
