@@ -61,10 +61,36 @@ function handleError(res, statusCode) {
 
 // Gets a list of Treatments
 export function index(req, res) {
-  Treatment.findAsync()
+
+  var p = req.query;
+  var selectString ='';
+
+  /*
+  console.log( 'name: ' + p.name);
+  console.log('therName:' + p.therapistName);
+
+  console.log('name:' +  req.query.name);
+  console.log('therName:' + p.query.therapistName);
+  */
+  selectString = p.only !== undefined ? selectString + p.only + ' ' : '';
+  console.log(p);
+  console.log(selectString);
+
+    Treatment.findAsync({},selectString)
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
+
+/*
+ export function show(req, res) {
+ Thing.findById(req.params.id)
+ .select('name')
+ .execAsync()
+ .then(handleEntityNotFound(res))
+ .then(respondWithResult(res))
+ .catch(handleError(res));
+ }
+ */
 
 // Gets a single Treatment from the DB
 export function show(req, res) {

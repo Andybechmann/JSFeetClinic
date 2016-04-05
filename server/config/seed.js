@@ -46,7 +46,9 @@ Therapist.find({}).removeAsync()
         {
           dayOfWeek:'Mandag',
           active: true,
-          openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) }
+          openingHours: {startTime: new Date(2010,10,10,7,0),endTime:new Date(2010,10,10,15,0) },
+          pauses:[{startTime:new Date(2010,10,10,8,30),endTime: new Date(2010,10,10,9,0)},
+                  {startTime:new Date(2010,10,10,11,30),endTime: new Date(2010,10,10,12,0)}]
         },
         {
           dayOfWeek:'Tirsdag',

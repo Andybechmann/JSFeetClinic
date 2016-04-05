@@ -63,44 +63,60 @@
 
         <div id="openingHours">
           <uib-accordion-group heading="{{hoursLabel}}" ng-click="hoursClick()">
-
             <md-list>
               <md-list-item ng-repeat="day in therapist.dayWorking">
                 <div layout="column" flex>
-                  <div layout="row">
+                  <div layout="row" flex>
                     <div layout="row" layout-align="start" flex="50">
-                    <md-switch class="md-primary" ng-model="day.active" >
-                      {{day.dayOfWeek}}
-                    </md-switch>
+                      <md-switch class="md-primary" ng-model="day.active">
+                        <strong> {{day.dayOfWeek}} </strong>
+                      </md-switch>
                     </div>
 
                     <div layout="row" layout-align="end" flex="50">
                       <md-checkbox ng-model="day.active">
-                        {{day.dayOfWeek}}
                       </md-checkbox>
                     </div>
                   </div>
+                  <div flex layout="column" ng-if="day.active">
+                    <rzslider flex
+                              rz-slider-model="daySliders[$index].openingHours.min"
+                              rz-slider-high="daySliders[$index].openingHours.max"
+                              rz-slider-options="daySliders[$index].openingHours.options">
+                    </rzslider>
+                    <br>
+                    <div flex layout="row">
+                      <div flex="10">
 
-                  <div flex="100" ng-if="day.active">
-                    <rzslider
-                      rz-slider-model="daySliders[$index].openingHours.min"
-                      rz-slider-high="daySliders[$index].openingHours.max"
-                      rz-slider-options="daySliders[$index].openingHours.options"></rzslider>
+                        <h4>Pauses:</h4>
+                        <rzslider rz-slider-model="daySliders[$index].numberOfPauses.value"
+                                  rz-slider-options="daySliders[$index].numberOfPauses.options"></rzslider>
+                      </div>
+
+                      <div flex="75" flex-offset="10" layout="column">
+                        <div ng-repeat="pause in daySliders[$index].pauses" layout="row">
+                          <md-checkbox ng-model="pause.options.draggableRangeOnly">
+                            Låst
+                          </md-checkbox>
+                          <rzslider flex-offset="10" flex
+                                    rz-slider-model="pause.min"
+                                    rz-slider-high="pause.max"
+                                    rz-slider-options="pause.options"></rzslider>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+                  <br>
                 </div>
-
               </md-list-item>
+              <md-divider md-inset="true"></md-divider>
             </md-list>
           </uib-accordion-group>
         </div>
-
-
       </uib-accordion>
-      <div>
-        <button type="button" class="btn btn-primary" ng-click="updateTherapist()"> Save</button>
-      </div>
-
-
     </form>
+    <div layout="row" layout-align="center" >
+      <button flex="50" type="button" class="btn btn-success btn-lg" ng-click="updateTherapist()">Gem</button>
+    </div>
   </div>
 </div>

@@ -9,19 +9,14 @@
         </md-button>
       </div>
     </md-toolbar>
-
     <md-dialog-content layout="row">
       <div class="md-dialog-content">
-
         <md-datepicker ng-model="startDate" md-min-date="minDate" ng-required="true" ng-change="firstDateClicked()" ng-flex="50">
         </md-datepicker>
         <md-datepicker ng-model="endDate" md-min-date="startDate" ng-required="true"   flex="50">
         </md-datepicker>
-
       </div>
-
     </md-dialog-content>
-
     <md-dialog-actions layout="row">
       <md-button ng-click="cancel()">
         Fortryd
