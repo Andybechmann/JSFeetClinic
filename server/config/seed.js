@@ -25,6 +25,7 @@ Treatment.find({}).removeAsync()
       'Peeling af fødder, ankler og læg.Fjernelse af hård hud og evt. ligtorne.' +
       'Klipning og slibning af neglene, indgnidning af blødgørende negle olie. Fødderne får til ' +
       'sidst en lækker Paraffinbehandling ',
+      imageUrl:"../../assets/images/4.jpg",
       price: 395,
       duration: 45,
       type: 'Fodbehandling'
