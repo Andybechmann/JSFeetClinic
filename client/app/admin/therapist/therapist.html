@@ -24,7 +24,7 @@
             <md-list>
               <md-list-item ng-repeat="treatment in therapist.treatments">
                 <h3><p>{{treatment.name}}</p></h3>
-                <md-checkbox class="md-secondary" ng-model="treatment.licensed"></md-checkbox>
+                <md-checkbox class="md-secondary"></md-checkbox>
               </md-list-item>
             </md-list>
           </uib-accordion-group>
@@ -74,7 +74,7 @@
                     </div>
 
                     <div layout="row" layout-align="end" flex="50">
-                      <md-checkbox ng-model="day.active">
+                      <md-checkbox ng-model="day.active" aria-label="{{day.dayOfWeek}}">
                       </md-checkbox>
                     </div>
                   </div>

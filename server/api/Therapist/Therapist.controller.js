@@ -68,7 +68,8 @@ export function index(req, res) {
 
 // Gets a single Therapist from the DB
 export function show(req, res) {
-  Therapist.findByIdAsync(req.params.id)
+  Therapist.findById(req.params.id)
+    .populate('treatments','name')
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));

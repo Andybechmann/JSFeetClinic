@@ -97,8 +97,10 @@ angular.module('feetClinicApp')
 
     TherapistService.get({id: $stateParams.id}, function (therapist) {
       $scope.therapist = therapist;
+      console.log(therapist);
       passOpeningHoursSlider(therapist.dayWorking);
     });
+
 
     var passOpeningHoursSlider = function (dayWorking) {
       $scope.daySliders = [];

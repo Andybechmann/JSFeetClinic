@@ -11,15 +11,9 @@ var TherapistSchema = new mongoose.Schema({
   },
   description:String,
   imageUrl: String,
-  treatment:[{
-    type: Schema.ObjectId,
-    ref:'Treatment',
-    licensed:Boolean
-  }],
   treatments:[{
-    name:String,
-    licensed: Boolean
-  }],
+    type: Schema.ObjectId,
+    ref:'Treatment'}],
   bookings: [{
     type: Schema.ObjectId,
     ref:'Booking'
