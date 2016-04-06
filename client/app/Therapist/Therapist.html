@@ -3,7 +3,7 @@
   <md-content class="md-padding" layout-xs="column" layout="column">
 
 
-    <div flex-xs flex-gt-xs="50" layout="column" ng-repeat="therapist in therapists">
+    <div ng-if = "!isId()" flex-xs flex-gt-xs="50" layout="column" ng-repeat="therapist in therapists">
 
       <md-card>
         <md-card-title>
@@ -18,11 +18,35 @@
             </div>
           </md-card-title-media>
         </md-card-title>
-        <md-card-actions layout="row" layout-align="end center">
+        <md-card-actions layout="row" layout-align="first center">
           <md-button ng-if="isLoggedIn()">bookTime</md-button>
-          <md-button ng-click="goTo ">Details </md-button>
+        <md-button ng-click="goToDetail(therapist)">detail</md-button>
         </md-card-actions>
       </md-card>
     </div>
+
+    <md-card>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">{{therapist.name}}</span>
+                <span class="md-subhead">{{therapist.description}}</span><br>
+                <span class="md-subhead">Treatments </span>
+                <span class="md-subhead" data-toggle="tooltip" title="go to" ng-click="goToTreatment(t)" ng-repeat="t in therapist.treatments">
+                  <li>
+                    <md-button ng-click="goToTreatment(t)"> {{t.name}}</md-button>
+                  </li>
+                </span>
+              </md-card-title-text>
+              <md-card-title-media>
+                <div class="md-media-md card-media">
+                  <img src ={{therapist.imageUrl}}>
+                </div>
+              </md-card-title-media>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="first center">
+            <md-button ng-if="isLoggedIn()">bookTime</md-button>
+            </md-card-actions>
+          </md-card>
+
   </md-content>
 </div>

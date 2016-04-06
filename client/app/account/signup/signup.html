@@ -40,7 +40,30 @@
         </div>
 
 
+        <div class="form-group" ng-class="{ 'has-success': form.name.$valid && vm.submitted,
+                                            'has-error': form.name.$invalid && vm.submitted }">
+                                            
+          <label>Zip code</label>
 
+          <input type="number" name="zipCode" max="4" class="form-control" ng-model="vm.user.adress.zipCode"
+                 required/>
+          <p class="help-block" ng-show="form.name.$error.required && vm.submitted">
+            A zip Code is requireds
+          </p>
+
+        </div>
+
+
+        <div class="form-group" ng-class="{ 'has-success': form.name.$valid && vm.submitted,
+                                            'has-error': form.name.$invalid && vm.submitted }">
+          <label>Phone</label>
+
+          <input type="number" name="phone" max="8" class="form-control" ng-model="vm.user.phone"
+                 required/>
+          <p class="help-block" ng-show="form.name.$error.required && vm.submitted">
+            A Phone is requireds
+          </p>
+        </div>
 
 
 
