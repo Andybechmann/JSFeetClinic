@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('feetClinicApp')
-  .factory('TherapistService',function($resource){
+  .factory('TherapistService', function ($resource) {
     return $resource('/api/therapist/:id/:name',
       {
         id: '@id'
@@ -9,10 +9,10 @@ angular.module('feetClinicApp')
         update: {method: 'PUT'}, params: {id: '@id'}
       },
       {
-        get:{method:'GET',isArray:false}
+        get: {method: 'GET', isArray: false}
       },
       {
-        query:{method:'GET',isArray:true}
+        query: {method: 'GET', isArray: true}
       }
     );
-    });
+  });

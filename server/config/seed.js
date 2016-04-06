@@ -15,6 +15,7 @@ Treatment.find({}).removeAsync()
       name: 'Fodbehandling',
       description: 'Fjernelse af hård hud og evt. ligtorne, klipning og slibning af neglene, ' +
       'indgnidning af blødgørende negle olie.',
+      imageUrl:"../../assets/images/4.jpg",
       price: 300,
       duration: 30,
       type: 'Fodbehandling'
