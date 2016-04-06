@@ -60,7 +60,7 @@ angular.module('feetClinicApp')
   });
 
 
-function TherapistDialogController($scope, $mdDialog,TreatmentService) {
+function TherapistDialogController($scope, $mdDialog) {
   $scope.newTherapist = {
     name:'',
     description:'',
@@ -69,24 +69,6 @@ function TherapistDialogController($scope, $mdDialog,TreatmentService) {
     dayWorking: [],
     holiday : []
   };
-
-  TreatmentService.query({only:'name'},function(treatments){
-    for(var i = 0; i<treatments.length; i++){
-      $scope.newTherapist.treatments.push({
-        name:treatments[i].name,
-        licensed: false
-      });
-    };
-
-    for (var i = 1; i < 8; i++){
-      $scope.newTherapist.dayWorking.push({
-        dayOfWeek: dayToString(i),
-        active: false,
-        openingHours:{startTime: new Date(2010,10,10,7,0), endTime: new Date(2010,10,10,15,0)},
-        pauses:[]
-      });
-    }
-  });
 
   var dayToString = function (numberOfDay) {
     switch(numberOfDay) {
@@ -99,6 +81,15 @@ function TherapistDialogController($scope, $mdDialog,TreatmentService) {
       case 7: {return 'Søndag';}
       default: {return 'Ikke angivet';}
     }
+  };
+
+  for (var i = 1; i < 8; i++){
+    $scope.newTherapist.dayWorking.push({
+      dayOfWeek:dayToString(i),
+      active: false,
+      openingHours:{startTime: new Date(2010,10,10,7,0), endTime: new Date(2010,10,10,15,0)},
+      pauses:[]
+    });
   };
 
   $scope.cancel = function () {
