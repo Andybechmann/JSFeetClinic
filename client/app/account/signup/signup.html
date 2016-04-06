@@ -28,6 +28,17 @@
           </p>
         </div>
 
+        <div class="form-group" ng-class="{ 'has-success': form.name.$valid && vm.submitted,
+                                            'has-error': form.name.$invalid && vm.submitted }">
+          <label>Street number</label>
+
+          <input type="text" name="StreetNumber" class="form-control" ng-model="vm.user.adress.streetNumber"
+                 required/>
+          <p class="help-block" ng-show="form.name.$error.required && vm.submitted">
+            A street number is required
+          </p>
+        </div>
+
 
 
 
