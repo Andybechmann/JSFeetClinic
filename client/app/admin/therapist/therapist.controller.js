@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('feetClinicApp')
-  .controller('AdminTherapistCtrl', function ($state, $stateParams, $scope, TherapistService, $mdDialog, $timeout) {
+  .controller('AdminTherapistCtrl', function ($state, $stateParams, $scope, TherapistService,TreatmentService, $mdDialog, $timeout,socket) {
     //---- init -----
     $scope.showGeneral = false;
     $scope.generalLabel = 'General information';
@@ -14,7 +14,23 @@ angular.module('feetClinicApp')
 
     $scope.showHours = false;
     $scope.hoursLabel = 'Åbningstider';
-// -------------------  init finish -----------------------
+    // -------------------  init finish -----------------------
+
+    $scope.generalClick = function () {
+      $scope.showGeneral = !$scope.showGeneral;
+    };
+    $scope.holidayClick = function () {
+      $scope.showHoliday = !$scope.showHoliday;
+    };
+    $scope.treatmentClick = function () {
+      $scope.showTreatment = !$scope.showTreatment;
+    };
+    $scope.hoursClick = function () {
+      $scope.showHours = !$scope.showHours;
+      refreshSlider();
+    };
+//-------------------------------------------------------------------
+
     $scope.addHolidayDialog = function () {
       $mdDialog.show({
           controller: HolidayDialogController,
@@ -62,27 +78,16 @@ angular.module('feetClinicApp')
       });
     };
 
+    TherapistService.get({id: $stateParams.id}, function (therapist) {
+      $scope.therapist = therapist;
+      passOpeningHoursSlider(therapist.dayWorking);
+    });
 
     $scope.updateTherapist = function () {
-      console.log($scope.therapist);
       TherapistService.update({id: $scope.therapist._id}, $scope.therapist,
         function (therapist) {
           $scope.therapist = therapist;
         });
-    };
-
-    $scope.generalClick = function () {
-      $scope.showGeneral = !$scope.showGeneral;
-    };
-    $scope.holidayClick = function () {
-      $scope.showHoliday = !$scope.showHoliday;
-    };
-    $scope.treatmentClick = function () {
-      $scope.showTreatment = !$scope.showTreatment;
-    };
-    $scope.hoursClick = function () {
-      $scope.showHours = !$scope.showHours;
-      refreshSlider();
     };
 
     var deleteHoliday = function (holiday) {
@@ -95,11 +100,34 @@ angular.module('feetClinicApp')
       $scope.therapist.holiday.push(holiday);
     };
 
-    TherapistService.get({id: $stateParams.id}, function (therapist) {
-      $scope.therapist = therapist;
-      console.log(therapist);
-      passOpeningHoursSlider(therapist.dayWorking);
+
+
+    TreatmentService.query(function(treatments){
+      $scope.allTreatments = treatments;
+      socket.syncUpdates('Treatment',$scope.allTreatments)
     });
+
+    $scope.$on('$destroy',function(){
+      socket.unsyncUpdates('Therapist');
+      socket.unsyncUpdates('Treatment');
+    });
+
+    $scope.hasTreatment = function(treatment,list){
+      return _.findIndex(list , function(o){
+        return o._id == treatment._id;
+      })  > -1;
+
+    };
+
+    $scope.toggleTreatment = function (treatment, list) {
+      var index =  _.findIndex(list , function(o){
+        return o._id == treatment._id;
+      });
+      if (index > -1) {
+        _.remove(list, function(o){return o._id == treatment._id});
+      }
+      else list.push(treatment);
+    };
 
 
     var passOpeningHoursSlider = function (dayWorking) {
