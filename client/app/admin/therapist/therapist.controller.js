@@ -104,7 +104,7 @@ angular.module('feetClinicApp')
 
     TreatmentService.query(function(treatments){
       $scope.allTreatments = treatments;
-      socket.syncUpdates('Treatment',$scope.allTreatments);
+      socket.syncUpdates('Treatment',$scope.allTreatments)
     });
 
     $scope.$on('$destroy',function(){
@@ -112,24 +112,22 @@ angular.module('feetClinicApp')
       socket.unsyncUpdates('Treatment');
     });
 
-
     $scope.hasTreatment = function(treatment,list){
       return _.findIndex(list , function(o){
-        return o._id === treatment._id;
+        return o._id == treatment._id;
       })  > -1;
 
     };
 
     $scope.toggleTreatment = function (treatment, list) {
       var index =  _.findIndex(list , function(o){
-        return o._id === treatment._id;
+        return o._id == treatment._id;
       });
       if (index > -1) {
-        _.remove(list, function(o){return o._id === treatment._id})
+        _.remove(list, function(o){return o._id == treatment._id});
       }
-    else { list.push(treatment);
-    }
-  }
+      else list.push(treatment);
+    };
 
 
     var passOpeningHoursSlider = function (dayWorking) {
@@ -140,27 +138,27 @@ angular.module('feetClinicApp')
         slider.day = workingDay.dayOfWeek;
         slider.pauses = [];
         var start, end;
-        if ('openingHours' in workingDay) {
-          if ('startTime' in workingDay.openingHours) {
+        if ("openingHours" in workingDay) {
+          if ("startTime" in workingDay.openingHours) {
             start = translateTimeToNumber(workingDay.openingHours.startTime);
           }
           else {
             start = 0;
           }
-
-          if ('endTime' in workingDay.openingHours) {
+          ;
+          if ("endTime" in workingDay.openingHours) {
             end = translateTimeToNumber(workingDay.openingHours.endTime);
           }
           else {
             end = 288;
           }
-
+          ;
         }
         else {
           start = 0;
           end = 288;
         }
-
+        ;
         // slider for opening hours
         slider.openingHours = {
           min: start,
@@ -235,7 +233,7 @@ angular.module('feetClinicApp')
           var sliderId;
           var start;
           var end;
-          if(sliderPause === null){
+          if(sliderPause == null){
             start = daySlider.openingHours.min;
             end = daySlider.openingHours.min + 6;
             sliderId = daySlider.day + 0;
@@ -267,7 +265,7 @@ angular.module('feetClinicApp')
           };
 
           //date
-          if (pause === null){
+          if (pause == null){
             var timeStart = new Date(workingDay.openingHours.startTime);
             newPause.startTime = timeStart;
             var minutes = timeStart.getMinutes();
@@ -287,6 +285,10 @@ angular.module('feetClinicApp')
         }
       }else {
 
+
+
+      }
+
     }
 
     var synchronizePause = function (id,start,end) {
@@ -300,7 +302,7 @@ angular.module('feetClinicApp')
       var day = _($scope.therapist.dayWorking).find( day => day.dayOfWeek === id);
       var startTime = translateNumberToTime(start);
       var endTime = translateNumberToTime(end);
-      day.openingHours.startTime = startTime;
+      day.openingHours.startTime = startTime
       day.openingHours.endTime = endTime;
       var daySlider = _($scope.daySliders).find( d => d.day === id);
       for(var i = 0; i < day.pauses.length; i++ ){
@@ -317,9 +319,6 @@ angular.module('feetClinicApp')
           daySlider.pauses[i].max = end;
           daySlider.pauses[i].min = end - duration;
         }
-
-
-
       }
     };
     var translateTimeToNumber = function (time) {
@@ -352,18 +351,19 @@ angular.module('feetClinicApp')
         $scope.$broadcast('rzSliderForceRender');
       });
     };
+  });
 
 function HolidayDialogController($scope, $mdDialog, holiday) {
-  $scope.minDate = new Date();
+  $scope.minDate = new Date;
   if (holiday !== null) {
     $scope.startDate = new Date(holiday.startDate);
     $scope.endDate = new Date(holiday.endDate);
   }
   else {
-    $scope.startDate = new Date();
-    $scope.endDate = new Date();
+    $scope.startDate = new Date;
+    $scope.endDate = new Date;
   }
-
+  ;
   $scope.cancel = function () {
     $mdDialog.cancel();
   };
