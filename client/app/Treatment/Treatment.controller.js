@@ -28,4 +28,8 @@ angular.module('feetClinicApp')
       $state.go('Treatment', {id: treatment._id});
     };
 
+    $scope.goBack = function(){
+      window.history.back();
+    };
+
   });
