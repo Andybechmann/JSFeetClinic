@@ -125,10 +125,11 @@ angular.module('feetClinicApp')
         return o._id === treatment._id;
       });
       if (index > -1) {
-        _.remove(list, function(o){return o._id === treatment._id});
+        _.remove(list, function(o){return o._id === treatment._id})
       }
-      else { list.push(treatment);
+    else { list.push(treatment);
     }
+  }
 
 
     var passOpeningHoursSlider = function (dayWorking) {
@@ -139,15 +140,15 @@ angular.module('feetClinicApp')
         slider.day = workingDay.dayOfWeek;
         slider.pauses = [];
         var start, end;
-        if ("openingHours" in workingDay) {
-          if ("startTime" in workingDay.openingHours) {
+        if ('openingHours' in workingDay) {
+          if ('startTime' in workingDay.openingHours) {
             start = translateTimeToNumber(workingDay.openingHours.startTime);
           }
           else {
             start = 0;
           }
 
-          if ("endTime" in workingDay.openingHours) {
+          if ('endTime' in workingDay.openingHours) {
             end = translateTimeToNumber(workingDay.openingHours.endTime);
           }
           else {
@@ -374,4 +375,4 @@ function HolidayDialogController($scope, $mdDialog, holiday) {
     $mdDialog.hide(holiday);
   };
 }
-};
+});
