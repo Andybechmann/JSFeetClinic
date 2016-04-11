@@ -286,8 +286,8 @@ angular.module('feetClinicApp')
           oldSliders.push(newSlider);
         }
       }else {
-      }
-    };
+
+    }
 
     var synchronizePause = function (id,start,end) {
       var index = parseInt( id.substring( id.length-1 , id.length)); // take last symbol in  id and
@@ -374,5 +374,5 @@ function HolidayDialogController($scope, $mdDialog, holiday) {
     var holiday = {startDate: $scope.startDate, endDate: $scope.endDate};
     $mdDialog.hide(holiday);
   };
-}
-});
+
+};
