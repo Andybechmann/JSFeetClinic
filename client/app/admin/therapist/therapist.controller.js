@@ -84,8 +84,10 @@ angular.module('feetClinicApp')
     });
 
     $scope.updateTherapist = function () {
+      console.log('befor update',$scope.therapist);
       TherapistService.update({id: $scope.therapist._id}, $scope.therapist,
         function (therapist) {
+          console.log('efter update',therapist);
           $scope.therapist = therapist;
         });
     };
@@ -126,8 +128,13 @@ angular.module('feetClinicApp')
       if (index > -1) {
         _.remove(list, function(o){return o._id == treatment._id});
       }
-      else list.push(treatment);
+      else {
+        var t = {};
+        t._id = treatment._id;
+        list.push(t);
+      }
     };
+
 
 
     var passOpeningHoursSlider = function (dayWorking) {

@@ -87,7 +87,8 @@ export function update(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
-  Therapist.findByIdAsync(req.params.id)
+  Therapist.findById(req.params.id)
+    .populate('treatments','name')
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
     .then(respondWithResult(res))
