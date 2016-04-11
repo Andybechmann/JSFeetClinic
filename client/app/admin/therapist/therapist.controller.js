@@ -351,7 +351,6 @@ angular.module('feetClinicApp')
         $scope.$broadcast('rzSliderForceRender');
       });
     };
-  });
 
 function HolidayDialogController($scope, $mdDialog, holiday) {
   $scope.minDate = new Date();
@@ -375,4 +374,4 @@ function HolidayDialogController($scope, $mdDialog, holiday) {
     $mdDialog.hide(holiday);
   };
 }
-}
+};
