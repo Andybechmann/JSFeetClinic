@@ -38,7 +38,7 @@ Therapist.find({}).removeAsync()
     Therapist.createAsync({
         name: 'Andy',
         description: 'Nyuddanet behandler',
-        imageUrl: "../../assets/images/1.jpg",
+        imageUrl: "../../assets/images/glad.jpg",
         treatments: ['570219df5cca8f701a078f46','570219df5cca8f701a078f47'],
         dayWorking: [
           {
@@ -82,7 +82,7 @@ Therapist.find({}).removeAsync()
       }, {
         name: 'Ievgenii',
         description: 'Erfaring behandler',
-        imageUrl: "../../assets/images/2.jpg",
+        imageUrl: "../../assets/images/black.jpg",
         treatments: ['570219df5cca8f701a078f46'],
         dayWorking: [
           {
@@ -128,7 +128,7 @@ Therapist.find({}).removeAsync()
       }, {
         name: 'kathe',
         description: 'Erfaring behandler',
-        imageUrl: "../../assets/images/2.jpg",
+        imageUrl: "../../assets/images/ked.jpg",
       treatments: ['570219df5cca8f701a078f47'],
         dayWorking: [
           {
@@ -175,7 +175,7 @@ Therapist.find({}).removeAsync()
         'De fleste fodlidelser og problemer kan forebygges, hvis du giver dine fødder et par minutters opmærksomhed hver dag' +
         'Du har kun det ene par, som skal bære dig gennem hele livet, men ofte glemmer du at pleje dem, fordi de bliver gemt væk i strømper og sko den lange dag. Du bliver først opmærksom på dine fødder, når de bliver ømme eller noget gør ondt i dem.' +
         'Smukke fødder giver velvære for krop og sjæl – dit velvære spejler sig i dit udseende, og giver dig indre og ydre skønhed',
-        imageUrl: "../../assets/images/2.jpg",
+        imageUrl: "../../assets/images/påske.jpg",
       treatments: ['570219df5cca8f701a078f46','570219df5cca8f701a078f47'],
         dayWorking: [
           {

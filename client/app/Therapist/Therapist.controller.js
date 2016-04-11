@@ -25,12 +25,16 @@ angular.module('feetClinicApp')
       });
     }
     $scope.goToDetail = function (therapist) {
-      console.log("peter pan" + therapist._id );
+      console.log('peter pan' + therapist._id );
       $state.go('Therapist', {id: therapist._id});
     };
 
     $scope.goToTreatment = function (treatment) {
       $state.go('Treatment', {id: treatment._id});
+    };
+
+    $scope.goBack = function(){
+      window.history.back();
     };
 
 

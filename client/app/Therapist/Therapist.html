@@ -20,7 +20,7 @@
         </md-card-title>
         <md-card-actions layout="row" layout-align="first center">
           <md-button ng-if="isLoggedIn()">bookTime</md-button>
-        <md-button ng-click="goToDetail(therapist)">detail</md-button>
+        <md-button ng-click="goToDetail(therapist)">info</md-button>
         </md-card-actions>
       </md-card>
     </div>
@@ -46,6 +46,7 @@
             </md-card-title>
             <md-card-actions layout="row" layout-align="first center">
             <md-button ng-if="isLoggedIn()">bookTime</md-button>
+            <md-button ng-click="goBack()">Back</md-button>
             </md-card-actions>
           </md-card>
 

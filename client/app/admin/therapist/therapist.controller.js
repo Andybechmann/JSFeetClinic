@@ -62,9 +62,12 @@ angular.module('feetClinicApp')
       });
     };
 
+    TherapistService.get({id: $stateParams.id}, function (therapist) {
+      $scope.therapist = therapist;
+      passOpeningHoursSlider(therapist.dayWorking);
+    });
 
     $scope.updateTherapist = function () {
-      console.log($scope.therapist);
       TherapistService.update({id: $scope.therapist._id}, $scope.therapist,
         function (therapist) {
           $scope.therapist = therapist;
@@ -95,11 +98,7 @@ angular.module('feetClinicApp')
       $scope.therapist.holiday.push(holiday);
     };
 
-    TherapistService.get({id: $stateParams.id}, function (therapist) {
-      $scope.therapist = therapist;
-      console.log(therapist);
-      passOpeningHoursSlider(therapist.dayWorking);
-    });
+
 
 
     var passOpeningHoursSlider = function (dayWorking) {

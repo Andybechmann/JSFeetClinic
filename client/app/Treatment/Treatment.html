@@ -8,7 +8,7 @@
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline">{{treatment.name}}</span><br>
-            <span class="md-subhead">see more, Click detail</span>
+            <span class="md-subhead">see more, Click info</span>
           </md-card-title-text>
           <md-card-title-media>
             <div class="md-media-md card-media">
@@ -19,7 +19,7 @@
         </md-card-title>
         <md-card-actions layout="row" layout-align="first center">
           <md-button ng-if="isLoggedIn()">bookTime</md-button>
-          <md-button ng-click="goToDetail(treatment)">detail</md-button>
+          <md-button ng-click="goToDetail(treatment)">info</md-button>
         </md-card-actions>
       </md-card>
     </div>
@@ -37,8 +37,9 @@
                   </div>
                 </md-card-title-media>
               </md-card-title>
-              <md-card-actions layout="row" layout-align="end center">
+              <md-card-actions layout="row" layout-align="first center">
               <md-button ng-if="isLoggedIn()">bookTime</md-button>
+              <md-button ng-click="goBack()">Back</md-button>
               </md-card-actions>
             </md-card>
 
