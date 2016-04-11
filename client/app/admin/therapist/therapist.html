@@ -21,15 +21,21 @@
 
         <div id="licensedTreatments">
           <uib-accordion-group heading="{{treatmentLabel}}" is-open="showTreatment" ng-click="treatmentClick()">
-            <md-list>
-              <md-list-item ng-repeat="treatment in therapist.treatments">
-                <h3><p>{{treatment.name}}</p></h3>
-                <md-checkbox class="md-secondary"></md-checkbox>
-              </md-list-item>
-            </md-list>
+
+            <md-checkbox ng-repeat="treatment in allTreatments" ng-checked="hasTreatment(treatment, therapist.treatments)"
+                         ng-click="toggleTreatment(treatment, therapist.treatments)">
+              {{ treatment.name }}
+            </md-checkbox>
+
+            <!--
+                        <md-list>
+                          <md-list-item ng-repeat="treatment in allTreatments" ng-click="doTreatment(treatment)">
+                            <h4><p >{{treatment.name}}</p></h4>
+                            <md-checkbox class="md-secondary" ng-checked="hasTreatment(treatment)" ng-disabled="true"></md-checkbox>
+                          </md-list-item>
+            </md-list> -->
           </uib-accordion-group>
         </div>
-
         <div id="holidays">
           <uib-accordion-group heading="{{holidayLabel}}" is-open="showHoliday" ng-click="holidayClick()">
             <md-list>
@@ -60,7 +66,6 @@
             </md-button>
           </uib-accordion-group>
         </div>
-
         <div id="openingHours">
           <uib-accordion-group heading="{{hoursLabel}}" ng-click="hoursClick()">
             <md-list>
@@ -115,7 +120,7 @@
         </div>
       </uib-accordion>
     </form>
-    <div layout="row" layout-align="center" >
+    <div layout="row" layout-align="center">
       <button flex="50" type="button" class="btn btn-success btn-lg" ng-click="updateTherapist()">Gem</button>
     </div>
   </div>

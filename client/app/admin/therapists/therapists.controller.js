@@ -25,7 +25,6 @@ angular.module('feetClinicApp')
 
     $scope.createTherapist = function(newTherapist){
       TherapistService.save(newTherapist,function(therapist){
-       // console.log(therapist);
       });
     };
 

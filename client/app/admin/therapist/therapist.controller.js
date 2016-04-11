@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('feetClinicApp')
-  .controller('AdminTherapistCtrl', function ($state, $stateParams, $scope, TherapistService, $mdDialog, $timeout) {
+  .controller('AdminTherapistCtrl', function ($state, $stateParams, $scope, TherapistService,TreatmentService, $mdDialog, $timeout,socket) {
     //---- init -----
     $scope.showGeneral = false;
     $scope.generalLabel = 'General information';
@@ -14,7 +14,23 @@ angular.module('feetClinicApp')
 
     $scope.showHours = false;
     $scope.hoursLabel = 'Åbningstider';
-// -------------------  init finish -----------------------
+    // -------------------  init finish -----------------------
+
+    $scope.generalClick = function () {
+      $scope.showGeneral = !$scope.showGeneral;
+    };
+    $scope.holidayClick = function () {
+      $scope.showHoliday = !$scope.showHoliday;
+    };
+    $scope.treatmentClick = function () {
+      $scope.showTreatment = !$scope.showTreatment;
+    };
+    $scope.hoursClick = function () {
+      $scope.showHours = !$scope.showHours;
+      refreshSlider();
+    };
+//-------------------------------------------------------------------
+
     $scope.addHolidayDialog = function () {
       $mdDialog.show({
           controller: HolidayDialogController,
@@ -74,20 +90,6 @@ angular.module('feetClinicApp')
         });
     };
 
-    $scope.generalClick = function () {
-      $scope.showGeneral = !$scope.showGeneral;
-    };
-    $scope.holidayClick = function () {
-      $scope.showHoliday = !$scope.showHoliday;
-    };
-    $scope.treatmentClick = function () {
-      $scope.showTreatment = !$scope.showTreatment;
-    };
-    $scope.hoursClick = function () {
-      $scope.showHours = !$scope.showHours;
-      refreshSlider();
-    };
-
     var deleteHoliday = function (holiday) {
       var index = _.indexOf($scope.therapist.holiday, holiday);
       if (index > -1) {
@@ -99,6 +101,34 @@ angular.module('feetClinicApp')
     };
 
 
+
+    TreatmentService.query(function(treatments){
+      $scope.allTreatments = treatments;
+      socket.syncUpdates('Treatment',$scope.allTreatments)
+    });
+
+    $scope.$on('$destroy',function(){
+      socket.unsyncUpdates('Therapist');
+      socket.unsyncUpdates('Treatment');
+    });
+
+
+    $scope.hasTreatment = function(treatment,list){
+      return _.findIndex(list , function(o){
+        return o._id == treatment._id;
+      })  > -1;
+
+    };
+
+    $scope.toggleTreatment = function (treatment, list) {
+      var index =  _.findIndex(list , function(o){
+        return o._id == treatment._id;
+      });
+      if (index > -1) {
+        _.remove(list, function(o){return o._id == treatment._id});
+      }
+      else { list.push(treatment);
+    }
 
 
     var passOpeningHoursSlider = function (dayWorking) {
@@ -116,20 +146,20 @@ angular.module('feetClinicApp')
           else {
             start = 0;
           }
-          ;
+
           if ("endTime" in workingDay.openingHours) {
             end = translateTimeToNumber(workingDay.openingHours.endTime);
           }
           else {
             end = 288;
           }
-          ;
+
         }
         else {
           start = 0;
           end = 288;
         }
-        ;
+
         // slider for opening hours
         slider.openingHours = {
           min: start,
@@ -204,7 +234,7 @@ angular.module('feetClinicApp')
           var sliderId;
           var start;
           var end;
-          if(sliderPause == null){
+          if(sliderPause === null){
             start = daySlider.openingHours.min;
             end = daySlider.openingHours.min + 6;
             sliderId = daySlider.day + 0;
@@ -236,7 +266,7 @@ angular.module('feetClinicApp')
           };
 
           //date
-          if (pause == null){
+          if (pause === null){
             var timeStart = new Date(workingDay.openingHours.startTime);
             newPause.startTime = timeStart;
             var minutes = timeStart.getMinutes();
@@ -256,7 +286,7 @@ angular.module('feetClinicApp')
         }
       }else {
       }
-    }
+    };
 
     var synchronizePause = function (id,start,end) {
       var index = parseInt( id.substring( id.length-1 , id.length)); // take last symbol in  id and
@@ -269,7 +299,7 @@ angular.module('feetClinicApp')
       var day = _($scope.therapist.dayWorking).find( day => day.dayOfWeek === id);
       var startTime = translateNumberToTime(start);
       var endTime = translateNumberToTime(end);
-      day.openingHours.startTime = startTime
+      day.openingHours.startTime = startTime;
       day.openingHours.endTime = endTime;
       var daySlider = _($scope.daySliders).find( d => d.day === id);
       for(var i = 0; i < day.pauses.length; i++ ){
@@ -324,16 +354,16 @@ angular.module('feetClinicApp')
   });
 
 function HolidayDialogController($scope, $mdDialog, holiday) {
-  $scope.minDate = new Date;
+  $scope.minDate = new Date();
   if (holiday !== null) {
     $scope.startDate = new Date(holiday.startDate);
     $scope.endDate = new Date(holiday.endDate);
   }
   else {
-    $scope.startDate = new Date;
-    $scope.endDate = new Date;
+    $scope.startDate = new Date();
+    $scope.endDate = new Date();
   }
-  ;
+
   $scope.cancel = function () {
     $mdDialog.cancel();
   };
@@ -344,4 +374,5 @@ function HolidayDialogController($scope, $mdDialog, holiday) {
     var holiday = {startDate: $scope.startDate, endDate: $scope.endDate};
     $mdDialog.hide(holiday);
   };
-};
+}
+}
