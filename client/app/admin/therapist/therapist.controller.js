@@ -104,7 +104,7 @@ angular.module('feetClinicApp')
 
     TreatmentService.query(function(treatments){
       $scope.allTreatments = treatments;
-      socket.syncUpdates('Treatment',$scope.allTreatments)
+      socket.syncUpdates('Treatment',$scope.allTreatments);
     });
 
     $scope.$on('$destroy',function(){
@@ -115,17 +115,17 @@ angular.module('feetClinicApp')
 
     $scope.hasTreatment = function(treatment,list){
       return _.findIndex(list , function(o){
-        return o._id == treatment._id;
+        return o._id === treatment._id;
       })  > -1;
 
     };
 
     $scope.toggleTreatment = function (treatment, list) {
       var index =  _.findIndex(list , function(o){
-        return o._id == treatment._id;
+        return o._id === treatment._id;
       });
       if (index > -1) {
-        _.remove(list, function(o){return o._id == treatment._id});
+        _.remove(list, function(o){return o._id === treatment._id});
       }
       else { list.push(treatment);
     }
