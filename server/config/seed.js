@@ -19,6 +19,26 @@ Treatment.find({}).removeAsync()
       price: 300,
       duration: 30,
       type: 'Fodbehandling'
+    },
+    {
+      _id: '570219df5cca8f701a076f46',
+      name: 'Fodbehandling',
+      description: 'Fjernelse af hård hud og evt. ligtorne, klipning og slibning af neglene, ' +
+      'indgnidning af blødgørende negle olie.',
+      imageUrl:"../../assets/images/4.jpg",
+      price: 300,
+      duration: 30,
+      type: 'Fodbehandling'
+    },
+    {
+      _id: '570219df5cca8f702a078f46',
+      name: 'Fodbehandling3',
+      description: 'Fjernelse af hård hud og evt. ligtorne, klipning og slibning af neglene, ' +
+      'indgnidning af blødgørende negle olie.',
+      imageUrl:"../../assets/images/4.jpg",
+      price: 300,
+      duration: 30,
+      type: 'Fodbehandling'
     }, {
       _id: '570219df5cca8f701a078f47',
       name: 'Luksus Fodbehandling',

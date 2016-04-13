@@ -4,10 +4,12 @@
 
 
 body{
-	background-image:url("https://lh4.googleusercontent.com/-3eBjuQpOGFw/U47yh_-OycI/AAAAAAAAI2U/uaU5pK49N1w/s1600/normal.jpg");
-	background-repeat:no-repeat;
-	background-size: cover;
-	background-attachment: fixed;
+ 
+	    font-family : arial;
+	    background-image:url(../../assets/images/2.jpg);
+	    background-repeat:no-repeat;
+	    background-size:cover;
+	    background-attachment: fixed;
 
 	font-family:Raleway, Open Sans, Droid Sans, Roboto,arial, sans-serif;
 }
