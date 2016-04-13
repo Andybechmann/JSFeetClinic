@@ -18,7 +18,6 @@ angular.module('feetClinicApp')
      socket.unsyncUpdates('Treatment');
      });
 
-
     if ($scope.isId()) {
       TreatmentService.get({id: $scope.id}, function (treatment) {
         $scope.treatment = treatment;

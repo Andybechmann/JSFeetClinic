@@ -51,8 +51,6 @@ angular.module('feetClinicApp')
         })
         .then(function (therapist) {
           $scope.createTherapist(therapist)
-        }, function () {
-          //do nothing
         });
     };
 

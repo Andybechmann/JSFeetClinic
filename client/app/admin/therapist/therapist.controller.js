@@ -14,6 +14,7 @@ angular.module('feetClinicApp')
 
     $scope.showHours = false;
     $scope.hoursLabel = 'Åbningstider';
+    $scope.isLoading = false;
     // -------------------  init finish -----------------------
 
     $scope.generalClick = function () {
@@ -84,9 +85,11 @@ angular.module('feetClinicApp')
     });
 
     $scope.updateTherapist = function () {
+      $scope.isLoading = true;
       TherapistService.update({id: $scope.therapist._id}, $scope.therapist,
         function (therapist) {
           $scope.therapist = therapist;
+          $scope.isLoading = false;
         });
     };
 
@@ -283,12 +286,7 @@ angular.module('feetClinicApp')
           oldArray.push(newPause);
           oldSliders.push(newSlider);
         }
-      }else {
-
-
-
-      }
-
+      }else {}
     }
 
     var synchronizePause = function (id,start,end) {

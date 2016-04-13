@@ -1,3 +1,50 @@
 <admin-navbar></admin-navbar>
-<div  ng-cloak >
+<div  ng-cloak flex >
+
+
+    <md-button class="md-fab  md-icon-button" ng-click="addTreatmentDialog()">
+      <i class="material-icons">add</i>
+    </md-button>
+    <md-content flex class="md-padding" layout="column" >
+      <md-card flex ng-repeat="treatment in treatments">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">{{treatment.name}}</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <p> {{treatment.description}}</p>
+          <div ng-if="showDetails">
+            <p>
+              <label>Pris:</label>
+              {{treatment.price}} dkk
+            </p>
+            <p>
+              <label>Varighed:</label>
+              {{treatment.duration}} min
+            </p>
+            <p>
+              <label>Type:</label>
+              {{treatment.type}}
+            </p>
+          </div>
+        </md-card-content>
+
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button ng-click="editDialog($event,treatment)" aria-label="edit">
+            <i class="material-icons">edit</i>
+          </md-button>
+          <md-button ng-click="showDetails = !showDetails" aria-label="details">
+            <i class="material-icons">
+              <span ng-if="showDetails"> keyboard_arrow_up </span>
+              <span ng-if="!showDetails"> keyboard_arrow_down </span>
+            </i>
+          </md-button>
+          <md-button ng-click="confirmDeleteDialog(treatment)" aria-label="delete">
+            <i class="material-icons">delete_forever</i>
+          </md-button>
+        </md-card-actions>
+      </md-card>
+    </md-content>
+
 </div>

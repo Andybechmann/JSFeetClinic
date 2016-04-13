@@ -21,7 +21,6 @@ var BookingSchema = new mongoose.Schema({
     ref: 'Treatment'
   }
 
-
 });
 
 export default mongoose.model('Booking', BookingSchema);
