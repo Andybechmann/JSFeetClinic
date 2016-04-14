@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('feetClinicApp')
-  .controller('AdminTreatmentCtrl', function($scope, TreatmentService, $stateParams,$state,socket,$mdDialog) {
+  .controller('AdminTreatmentCtrl', function ($scope, TreatmentService, $stateParams, $state, socket, $mdDialog) {
     $scope.id = $stateParams.id;
 
     $scope.isId = function () {
@@ -16,10 +16,10 @@ angular.module('feetClinicApp')
     else {
       TreatmentService.query(function (treatments) {
         $scope.treatments = treatments;
-        socket.syncUpdates('Treatment',$scope.treatments);
+        socket.syncUpdates('Treatment', $scope.treatments);
       });
 
-      $scope.$on('$destroy',function(){
+      $scope.$on('$destroy', function () {
         socket.unsyncUpdates('Treatment');
       });
     }
@@ -28,43 +28,35 @@ angular.module('feetClinicApp')
       $state.go('adminTreatment', {id: treatment._id});
     };
 
-    $scope.deleteTreatment = function(treatment){
-      TreatmentService.delete({id:treatment._id},function(t){});
-    };
-
-
-    $scope.goBack = function(){
-      window.history.back();
-    };
-
-    $scope.editDialog = function(ev,treatment){
-      $mdDialog.show({
-        controller: EditDialogController,
-        templateUrl:'app/admin/treatment/editTreatmentDialog.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose:true,
-        fullscreen: true
-
+    $scope.deleteTreatment = function (treatment) {
+      TreatmentService.delete({id: treatment._id}, function (t) {
       });
     };
 
-    $scope.showAdvanced = function(ev) {
-      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-      $mdDialog.show({
-          controller: DialogController,
-          templateUrl: 'dialog1.tmpl.html',
-          parent: angular.element(document.body),
-          targetEvent: ev,
-          clickOutsideToClose:true,
-          fullscreen: useFullScreen
-        })
-        .then(function(answer) {
-          $scope.status = 'You said the information was "' + answer + '".';
-        }, function() {
-          $scope.status = 'You cancelled the dialog.';
-        });
+
+    $scope.goBack = function () {
+      window.history.back();
     };
+
+    $scope.editDialog = function (ev, treatmentToEdit) {
+      $mdDialog.show({
+        controller: EditDialogController,
+        templateUrl: 'app/admin/treatment/treatmentDialog.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        locals: {treatment: treatmentToEdit},
+        clickOutsideToClose: true,
+        fullscreen: true
+      }).then(function (modifiedTreatment) {
+        var index = _.findIndex($scope.treatments, function(t) {return t._id == modifiedTreatment._id} );
+        if (index > -1) {
+          TreatmentService.update( {id:$scope.treatments[index]._id}, modifiedTreatment);
+        }else {
+          TreatmentService.save(modifiedTreatment,function(treatment){})
+        }
+      });
+    };
+
 
     $scope.confirmDeleteDialog = function (treatment) {
       var confirm = $mdDialog.confirm().title('Ønsker du at slette denne behandling?')
@@ -76,15 +68,27 @@ angular.module('feetClinicApp')
       });
     };
 
-    function EditDialogController($scope, $mdDialog) {
-      $scope.hide = function() {
+    function EditDialogController($scope, $mdDialog, treatment) {
+      if (treatment != null) {
+        $scope.modifiedTreatment = {
+          _id: treatment._id,
+          name: treatment.name,
+          description: treatment.description,
+          imageUrl: treatment.imageUrl,
+          price: treatment.price,
+          duration: treatment.duration,
+          type: treatment.type
+        };
+      }
+
+      $scope.hide = function () {
         $mdDialog.hide();
       };
-      $scope.cancel = function() {
+      $scope.cancel = function () {
         $mdDialog.cancel();
       };
-      $scope.answer = function(answer) {
-        $mdDialog.hide(answer);
+      $scope.answer = function (result) {
+        $mdDialog.hide(result);
       };
     }
 
