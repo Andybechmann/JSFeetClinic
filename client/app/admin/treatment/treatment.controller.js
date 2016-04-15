@@ -16,6 +16,8 @@ angular.module('feetClinicApp')
     else {
       TreatmentService.query(function (treatments) {
         $scope.treatments = treatments;
+        $scope.types = [];
+         _($scope.treatments).uniq(a => a.type).forEach(a => $scope.types.push(a.type));
         socket.syncUpdates('Treatment', $scope.treatments);
       });
 
@@ -23,6 +25,9 @@ angular.module('feetClinicApp')
         socket.unsyncUpdates('Treatment');
       });
     }
+
+
+
 
     $scope.goToDetail = function (treatment) {
       $state.go('adminTreatment', {id: treatment._id});
@@ -44,7 +49,7 @@ angular.module('feetClinicApp')
         templateUrl: 'app/admin/treatment/treatmentDialog.html',
         parent: angular.element(document.body),
         targetEvent: ev,
-        locals: {treatment: treatmentToEdit},
+        locals: {treatment: treatmentToEdit,types: $scope.types},
         clickOutsideToClose: true,
         fullscreen: true
       }).then(function (modifiedTreatment) {
@@ -68,7 +73,7 @@ angular.module('feetClinicApp')
       });
     };
 
-    function EditDialogController($scope, $mdDialog, treatment) {
+    function EditDialogController($scope, $mdDialog, treatment,types) {
       if (treatment != null) {
         $scope.modifiedTreatment = {
           _id: treatment._id,
@@ -80,6 +85,7 @@ angular.module('feetClinicApp')
           type: treatment.type
         };
       }
+      $scope.types = types;
 
       $scope.hide = function () {
         $mdDialog.hide();

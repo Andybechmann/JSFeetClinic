@@ -1,4 +1,4 @@
-<md-dialog aria-label="Ret behandling"  ng-cloak flex>
+<md-dialog aria-label="Ret behandling" ng-cloak flex>
   <form name="treatmentForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
@@ -32,7 +32,8 @@
 
         <md-input-container class="md-block">
           <label>Pris: </label>
-          <input ng-model="modifiedTreatment.price" type="number" step="1" min="1" required placeholder="Angiv pris" name="price">
+          <input ng-model="modifiedTreatment.price" type="number" step="1" min="1" required placeholder="Angiv pris"
+                 name="price">
           <div ng-messages="treatmentForm.price.$error">
             <div ng-message="required">This is required.</div>
             <div ng-message="min">Price has to be positive</div>
@@ -41,25 +42,46 @@
 
         <md-input-container class="md-block">
           <label>Varighed (min): </label>
-          <input ng-model="modifiedTreatment.duration" type="number" step="1" min="1" required placeholder="Angiv varighed minutes"
-                 name="duration" >
+          <input ng-model="modifiedTreatment.duration" type="number" step="1" min="1" required
+                 placeholder="Angiv varighed minutes"
+                 name="duration">
           <div ng-messages="treatmentForm.duration.$error">
             <div ng-message="required">This is required.</div>
             <div ng-message="min">Duration has to be positive</div>
           </div>
         </md-input-container>
 
-        <md-input-container class="md-block">
-          <label>Type: </label>
-          <input ng-model="modifiedTreatment.type" placeholder="angiv type af behandling">
+        <md-input-container class="md-block" ng-if="!newType">
+          <label>Type:</label>
+          <md-select ng-model="modifiedTreatment.type" placeholder="Choose type">
+            <md-option ng-repeat="type in types" value="{{type}}">
+              {{type}}
+            </md-option>
+          </md-select>
         </md-input-container>
+
+        <md-checkbox ng-model="newType" aria-label="new type">
+          Jeg vil gerne opret behandling med IKKE eksisterende type
+        </md-checkbox>
+
+        <md-input-container class="md-block" ng-if="newType">
+          <label>Type: </label>
+          <input ng-model="modifiedTreatment.type" placeholder="angiv type af behandling" name="type" md-maxlength="50"
+                 required>
+          <div ng-messages="treatmentForm.type.$error">
+            <div ng-message="required">This is required.</div>
+            <div ng-message="md-maxlength">The type has to be less than 50 characters long.</div>
+          </div>
+        </md-input-container>
+
+
       </div>
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
       <span flex></span>
       <md-button ng-click="cancel()">
-       Fortryd
+        Fortryd
       </md-button>
       <md-button ng-disabled="!treatmentForm.$valid" ng-click="answer(modifiedTreatment)" style="margin-right:20px;">
         Gem

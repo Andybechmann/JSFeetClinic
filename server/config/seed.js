@@ -28,7 +28,7 @@ Treatment.find({}).removeAsync()
       imageUrl:"../../assets/images/4.jpg",
       price: 300,
       duration: 30,
-      type: 'Fodbehandling'
+      type: 'Negle'
     },
     {
       _id: '570219df5cca8f702a078f46',
@@ -49,7 +49,7 @@ Treatment.find({}).removeAsync()
       imageUrl:"../../assets/images/4.jpg",
       price: 395,
       duration: 45,
-      type: 'Fodbehandling'
+      type: 'Arm'
     });
   });
 
