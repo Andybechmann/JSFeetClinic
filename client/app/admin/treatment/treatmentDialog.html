@@ -14,23 +14,25 @@
       <div class="md-dialog-content">
         <md-input-container>
           <label>Title:</label>
-          <input ng-model="modifiedTreatment.name">
+          <input ng-model="modifiedTreatment.name" placeholder="Title">
         </md-input-container>
         <md-input-container class="md-block">
           <label>Beskrivelse:</label>
-          <textarea ng-model="modifiedTreatment.description" md-maxlength="600" rows="10" md-select-on-focus></textarea>
+          <textarea ng-model="modifiedTreatment.description" md-maxlength="600" rows="10" md-select-on-focus
+                    placeholder="Beskriv behandling"></textarea>
         </md-input-container>
         <md-input-container class="md-block">
           <label>Pris: </label>
-          <input ng-model="modifiedTreatment.price" type="number" step="1">
+          <input ng-model="modifiedTreatment.price" type="number" step="1" placeholder="Angiv pris">
         </md-input-container>
         <md-input-container class="md-block">
           <label>Varighed (min): </label>
-          <input ng-model="modifiedTreatment.duration" type="number" step="1">
+          <input ng-model="modifiedTreatment.duration" type="number" step="1" placeholder="Angiv varighed minutes">
         </md-input-container>
+
         <md-input-container class="md-block">
           <label>Type: </label>
-          <input ng-model="modifiedTreatment.type" >
+          <input ng-model="modifiedTreatment.type" placeholder="angiv type af behandling">
         </md-input-container>
       </div>
     </md-dialog-content>
